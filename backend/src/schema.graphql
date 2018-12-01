@@ -1,0 +1,44 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+	createBrand(name: String, image_url: String): Brand!
+}
+
+type Query {
+	brands(
+		where: BrandWhereInput
+		orderBy: BrandOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Brand]!
+	categories(
+		where: CategoryWhereInput
+		orderBy: CategoryOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Category]!
+	products(
+		where: ProductWhereInput
+		orderBy: ProductOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [Product]!
+	productsConnection(
+		where: ProductWhereInput
+		orderBy: ProductOrderByInput
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): ProductConnection!
+}

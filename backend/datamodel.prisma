@@ -1,0 +1,27 @@
+ type Category{
+ 	id: ID! @unique
+ 	name: String!
+ 	description: String!
+ 	icon: String!
+ 	slug: String!
+ }
+
+ type Brand{
+ 	id: ID! @unique
+ 	name: String!
+ 	image_url: String!
+ 	slug: String!
+ }
+
+ type Product{
+ 	id: ID! @unique
+ 	name: String!
+ 	description: String!
+ 	image_url: String!
+ 	price: Int!
+ 	stock: Int!
+ 	brand: Brand!
+ 	category: Category!
+ 	slug: String!
+ }
+
