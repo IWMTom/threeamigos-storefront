@@ -4,6 +4,7 @@
  	description: String!
  	icon: String!
  	slug: String!
+ 	products: [Product!]!
  }
 
  type Brand{
@@ -11,6 +12,7 @@
  	name: String!
  	image_url: String!
  	slug: String!
+ 	products: [Product!]!
  }
 
  type Product{

@@ -1,7 +1,24 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { ALL_CATEGORIES_QUERY } from "./Navbar";
 import SideNavCategory from "./SideNavCategory";
+
+const ALL_CATEGORIES_QUERY = gql`
+	query ALL_CATEGORIES_QUERY($first: Int = 5) {
+		categories(first: $first) {
+			id
+			name
+			icon
+			slug
+			products {
+				brand {
+					id
+					name
+					slug
+				}
+			}
+		}
+	}
+`;
 
 const SideNav = () => (
 	<Query query={ALL_CATEGORIES_QUERY}>
