@@ -1,9 +1,11 @@
 import SingleProduct from "../components/SingleProduct";
 
 const Product = props => (
-	<section id="product">
-		<SingleProduct slug={props.query.slug} />
-	</section>
+	<div className="container">
+		<section id="product">
+			<SingleProduct slug={props.query.slug} />
+		</section>
+	</div>
 );
 
 export default Product;

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Header from './Header';
-import Meta from './Meta';
-import Footer from './Footer'
+import React, { Component } from "react";
+import Header from "./Header";
+import Meta from "./Meta";
+import Footer from "./Footer";
 import "../css/App.scss";
 
 class Page extends Component {
@@ -10,9 +10,7 @@ class Page extends Component {
       <React.Fragment>
         <Meta />
         <Header />
-        <div className="container">
-          {this.props.children}
-        </div>
+        {this.props.children}
         <Footer />
       </React.Fragment>
     );

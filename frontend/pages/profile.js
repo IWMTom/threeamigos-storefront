@@ -1,7 +1,9 @@
 const Profile = props => (
-	<section id="profile">
-		<h1>Profile</h1>
-	</section>
-)
+	<div className="container">
+		<section id="profile">
+			<h1>Profile</h1>
+		</section>
+	</div>
+);
 
-export default Profile
+export default Profile;

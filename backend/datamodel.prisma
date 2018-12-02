@@ -25,5 +25,6 @@
  	brand: Brand!
  	category: Category!
  	slug: String!
+ 	sale: Boolean!
  }
 
