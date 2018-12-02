@@ -32,7 +32,7 @@ class Category extends Component {
 							<Head>
 								<title>Three Amigos - {category.name}</title>
 							</Head>
-							<Products category={category} />
+							<Products category={category} key={Date.now()} />
 						</React.Fragment>
 					);
 				}}

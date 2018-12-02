@@ -30,6 +30,7 @@ class SideNavCategory extends React.Component {
 								brand: brand.slug
 							}
 						}}
+						key={brand.id}
 					>
 						<a>{brand.name}</a>
 					</Link>

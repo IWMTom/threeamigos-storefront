@@ -63,6 +63,7 @@ const FilteredProducts = props => (
 							<Link
 								route="product"
 								params={{ slug: product.slug }}
+								key={product.id}
 							>
 								<a
 									className={
@@ -70,7 +71,6 @@ const FilteredProducts = props => (
 											? "product card sale"
 											: "product card"
 									}
-									key={product.id}
 								>
 									{product.sale && (
 										<span className="product-sale">
