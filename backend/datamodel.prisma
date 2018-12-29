@@ -28,3 +28,16 @@
  	sale: Boolean!
  }
 
+type User{
+	id: ID! @unique
+	name: String!
+	photo_url: String
+	cart: [CartProduct!]!
+}
+
+type CartProduct{
+	id: ID! @unique
+	quantity: Int! @default(value: 1)
+	product: Product
+	user: User!
+}

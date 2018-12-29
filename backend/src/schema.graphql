@@ -1,7 +1,9 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-	createBrand(name: String, image_url: String): Brand!
+	addToCart(id: ID!): CartProduct
+	updateCartProduct(id: ID!, increment: Boolean!): CartProduct
+	removeFromCart(id: ID!): CartProduct
 }
 
 type Query {
@@ -41,4 +43,12 @@ type Query {
 		first: Int
 		last: Int
 	): ProductConnection!
+	me: User
+}
+
+type User {
+	id: ID!
+	name: String!
+	photo_url: String
+	cart: [CartProduct!]!
 }
