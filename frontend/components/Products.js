@@ -2,6 +2,7 @@ import ProductHeader from "../components/ProductHeader";
 import ProductSort from "../components/ProductSort";
 import ProductFilter from "../components/ProductFilter";
 import FilteredProducts from "../components/FilteredProducts";
+import { Router } from "../routes";
 
 class Products extends React.Component {
 	state = {
@@ -11,7 +12,9 @@ class Products extends React.Component {
 			? this.props.category.id
 			: "all-categories",
 		brand: this.props.brand ? this.props.brand.id : "all-brands",
-		sort_type: "name_ASC"
+		sort_type: "name_ASC",
+		category_slug: this.props.category ? this.props.category.slug : "",
+		brand_slug: this.props.brand ? this.props.brand.slug : ""
 	};
 
 	updatePriceValues = sliderState => {
@@ -22,6 +25,34 @@ class Products extends React.Component {
 	};
 
 	updateValue = e => {
+		this.setState(
+			{
+				[e.target.name]: e.target.id,
+				[`${e.target.name}_slug`]: e.target.attributes.slug.value
+			},
+			() => {
+				history.pushState(
+					null,
+					"",
+					"/products" +
+						(this.state.brand_slug || this.state.category_slug
+							? "?"
+							: "") +
+						(this.state.category_slug
+							? "category=" + this.state.category_slug
+							: "") +
+						(this.state.brand_slug && this.state.category_slug
+							? "&"
+							: "") +
+						(this.state.brand_slug
+							? "brand=" + this.state.brand_slug
+							: "")
+				);
+			}
+		);
+	};
+
+	updateSortValue = e => {
 		this.setState({
 			[e.target.name]: e.target.id
 		});
@@ -32,11 +63,14 @@ class Products extends React.Component {
 			<React.Fragment>
 				<ProductHeader
 					title={
-						this.props.brand
+						(this.props.brand && this.props.category) ||
+						(!this.props.brand && !this.props.category)
+							? "Products"
+							: this.props.brand
 							? this.props.brand.name
 							: this.props.category.name
 					}
-					icon={this.props.category ? this.props.category.icon : ""}
+					icon={this.props.brand ? "" : this.props.category.icon}
 				/>
 
 				<div className="container">
@@ -44,7 +78,7 @@ class Products extends React.Component {
 						<div className="pure-g">
 							<div className="pure-u-3-4">
 								<ProductSort
-									updateValue={this.updateValue}
+									updateValue={this.updateSortValue}
 									sort_type={this.state.sort_type}
 								/>
 

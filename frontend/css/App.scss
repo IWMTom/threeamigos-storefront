@@ -410,6 +410,7 @@ header {
 			font-size: em(13);
 			font-weight: 600;
 			background: none;
+			outline: none;
 
 			span {
 				vertical-align: middle;
@@ -508,6 +509,23 @@ header {
 			0px 0px 5px 2px rgba(0, 0, 0, 0.25);
 		transition: 0.2s all;
 
+		div#empty-cart {
+			text-align: center;
+			padding: 2em 0;
+
+			h2 {
+				font-weight: 600;
+				margin-top: 0.5em;
+				font-size: 1.5em;
+				color: $colour_grey_15;
+			}
+
+			p {
+				font-size: 0.8em;
+				color: $colour_grey_50;
+			}
+		}
+
 		&.visible {
 			right: 0;
 			transition: 0.2s all;
@@ -584,6 +602,7 @@ header {
 					left: 0;
 					top: 0;
 					background: none;
+					height: 100%;
 
 					&:hover {
 						box-shadow: none;
@@ -879,6 +898,13 @@ section#popular-products {
 		text-align: center;
 		transition: 0.2s box-shadow;
 		padding: em(30) 0 em(16) 0;
+		position: relative;
+
+		&.sale {
+			h3 {
+				color: $colour_pink;
+			}
+		}
 
 		img {
 			max-height: 150px;
@@ -892,6 +918,18 @@ section#popular-products {
 			font-size: em(14);
 			color: $colour_grey_50;
 			font-weight: 600;
+		}
+		span.product-sale {
+			position: absolute;
+			top: 1.875em;
+			left: 1.875em;
+			border-radius: 4px;
+			color: white;
+			font-size: 0.625em;
+			letter-spacing: 1px;
+			font-weight: 700;
+			background: $colour_pink_gradient;
+			padding: 1em 1.5em;
 		}
 		h3 {
 			font-size: em(16);
@@ -1092,6 +1130,39 @@ div#products-filter {
 div#product-card {
 	padding: em(60) em(65);
 	margin-bottom: 2em;
+	position: relative;
+
+	&.sale {
+		aside {
+			span {
+				color: $colour_pink;
+				position: relative;
+
+				del {
+					position: absolute;
+					font-size: 0.7em;
+					right: 0;
+					top: -14px;
+					color: #c1c1c1;
+					font-weight: 300;
+					font-style: italic;
+				}
+			}
+		}
+	}
+
+	span.product-sale {
+		position: absolute;
+		top: 5em;
+		left: 5em;
+		border-radius: 4px;
+		color: white;
+		font-size: 0.625em;
+		letter-spacing: 1px;
+		font-weight: 700;
+		background: linear-gradient(-135deg, #fe7379 0%, #f6519f 100%);
+		padding: 1em 1.5em;
+	}
 
 	img {
 		border: 2px solid $colour_grey_96;
@@ -1140,6 +1211,10 @@ div#product-card {
 		vertical-align: middle;
 		color: $colour_green;
 		font-weight: 400;
+
+		&.no-stock {
+			color: $colour_grey_50;
+		}
 	}
 	button {
 		vertical-align: middle;

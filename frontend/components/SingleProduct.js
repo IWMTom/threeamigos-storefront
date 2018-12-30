@@ -15,6 +15,7 @@ const SINGLE_PRODUCT_QUERY = gql`
 			description
 			price
 			sale
+			stock
 			category {
 				name
 				icon
@@ -51,9 +52,17 @@ class SingleProduct extends Component {
 					return (
 						<React.Fragment>
 							<Head>
-								<title>{product.name}</title>
+								<title>{product.name} - Three Amigos</title>
 							</Head>
-							<div id="product-card" className="card">
+							<div
+								id="product-card"
+								className={product.sale ? "card sale" : "card"}
+							>
+								{product.sale && (
+									<span className="product-sale">
+										Sale 50%
+									</span>
+								)}
 								<div className="pure-g">
 									<div className="pure-u-1-2">
 										<img
@@ -78,56 +87,88 @@ class SingleProduct extends Component {
 											</span>
 											<aside>
 												<span>
+													{product.sale && (
+														<del>
+															{formatMoney(
+																product.price *
+																	2
+															)}
+														</del>
+													)}
 													{formatMoney(product.price)}
 												</span>
 											</aside>
 										</div>
 										<p>{product.description}</p>
 										<div>
-											<span className="stock-level">
-												<strong>12</strong> left in
-												stock
-											</span>
-											<Mutation
-												mutation={TOGGLE_CART_MUTATION}
-											>
-												{toggleCart => (
+											{product.stock > 0 && (
+												<React.Fragment>
+													<span className="stock-level">
+														<strong>
+															{product.stock}
+														</strong>{" "}
+														left in stock
+													</span>
+
 													<Mutation
 														mutation={
-															ADD_TO_CART_MUTATION
+															TOGGLE_CART_MUTATION
 														}
-														variables={{
-															id: product.id
-														}}
-														refetchQueries={[
-															{
-																query: CURRENT_USER_QUERY
-															}
-														]}
 													>
-														{(
-															addToCart,
-															{ loading }
-														) => (
-															<button
-																disabled={
-																	loading
+														{toggleCart => (
+															<Mutation
+																mutation={
+																	ADD_TO_CART_MUTATION
 																}
-																onClick={e => {
-																	addToCart();
-																	toggleCart();
+																variables={{
+																	id:
+																		product.id
 																}}
-																className="btn btn-pink"
+																refetchQueries={[
+																	{
+																		query: CURRENT_USER_QUERY
+																	}
+																]}
 															>
-																Add
-																{loading &&
-																	"ing"}{" "}
-																to Cart
-															</button>
+																{(
+																	addToCart,
+																	{ loading }
+																) => (
+																	<button
+																		disabled={
+																			loading
+																		}
+																		onClick={e => {
+																			addToCart();
+																			toggleCart();
+																		}}
+																		className="btn btn-pink"
+																	>
+																		Add
+																		{loading &&
+																			"ing"}{" "}
+																		to Cart
+																	</button>
+																)}
+															</Mutation>
 														)}
 													</Mutation>
-												)}
-											</Mutation>
+												</React.Fragment>
+											)}
+
+											{product.stock == 0 && (
+												<React.Fragment>
+													<span className="stock-level no-stock">
+														Out of stock
+													</span>
+													<button
+														disabled="true"
+														className="btn btn-pink"
+													>
+														Add to Cart
+													</button>
+												</React.Fragment>
+											)}
 										</div>
 									</div>
 								</div>

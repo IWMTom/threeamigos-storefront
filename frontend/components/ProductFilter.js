@@ -9,6 +9,7 @@ const ALL_CATEGORIES_QUERY = gql`
 		categories(first: $first) {
 			id
 			name
+			slug
 		}
 	}
 `;
@@ -18,6 +19,7 @@ const ALL_BRANDS_QUERY = gql`
 		brands(first: $first) {
 			id
 			name
+			slug
 		}
 	}
 `;
@@ -68,6 +70,7 @@ class ProductFilter extends React.Component {
 								id="all-categories"
 								name="category"
 								type="radio"
+								slug=""
 								onChange={this.props.updateValue}
 								checked={
 									this.props.category === "all-categories"
@@ -97,6 +100,7 @@ class ProductFilter extends React.Component {
 													id={category.id}
 													name="category"
 													type="radio"
+													slug={category.slug}
 													onChange={
 														this.props.updateValue
 													}
@@ -128,6 +132,7 @@ class ProductFilter extends React.Component {
 								id="all-brands"
 								name="brand"
 								type="radio"
+								slug=""
 								onChange={this.props.updateValue}
 								checked={this.props.brand === "all-brands"}
 							/>
@@ -151,6 +156,7 @@ class ProductFilter extends React.Component {
 													id={brand.id}
 													name="brand"
 													type="radio"
+													slug={brand.slug}
 													onChange={
 														this.props.updateValue
 													}

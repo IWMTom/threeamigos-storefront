@@ -11,6 +11,7 @@ const ALL_PRODUCTS_QUERY = gql`
 			image_url
 			price
 			slug
+			sale
 		}
 	}
 `;

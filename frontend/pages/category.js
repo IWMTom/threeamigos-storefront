@@ -10,6 +10,7 @@ const SINGLE_CATEGORY_QUERY = gql`
 			id
 			name
 			icon
+			slug
 		}
 	}
 `;
@@ -30,7 +31,7 @@ class Category extends Component {
 					return (
 						<React.Fragment>
 							<Head>
-								<title>Three Amigos - {category.name}</title>
+								<title>{category.name} - Three Amigos</title>
 							</Head>
 							<Products category={category} key={Date.now()} />
 						</React.Fragment>
@@ -42,3 +43,4 @@ class Category extends Component {
 }
 
 export default Category;
+export { SINGLE_CATEGORY_QUERY };

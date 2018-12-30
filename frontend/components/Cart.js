@@ -61,6 +61,17 @@ const Cart = () => (
 												</strong>
 											</span>
 										)}
+
+										{me.cart.length === 0 && (
+											<div id="empty-cart">
+												<img
+													width="100"
+													src="/static/img/cart.png"
+												/>
+												<h2>Your cart is empty!</h2>
+												<p>Please buy something :)</p>
+											</div>
+										)}
 									</div>
 								</React.Fragment>
 							)}

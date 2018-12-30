@@ -9,6 +9,7 @@ const SINGLE_BRAND_QUERY = gql`
 		brands(first: $first, where: { slug: $slug }) {
 			id
 			name
+			slug
 		}
 	}
 `;
@@ -29,7 +30,7 @@ class Brand extends Component {
 					return (
 						<React.Fragment>
 							<Head>
-								<title>Three Amigos - {brand.name}</title>
+								<title>{brand.name} - Three Amigos</title>
 							</Head>
 							<Products brand={brand} />
 						</React.Fragment>
@@ -41,3 +42,4 @@ class Brand extends Component {
 }
 
 export default Brand;
+export { SINGLE_BRAND_QUERY };
