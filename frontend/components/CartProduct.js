@@ -1,4 +1,4 @@
-import { Query, Mutation } from "react-apollo";
+import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import PropTypes from "prop-types";
 import { Link } from "../routes";
@@ -6,16 +6,7 @@ import formatMoney from "../lib/formatMoney";
 import { CURRENT_USER_QUERY } from "./User";
 import { adopt } from "react-adopt";
 
-const INCREMENT_CART_PRODUCT_MUTATION = gql`
-	mutation updateCartProduct($id: ID!, $increment: Boolean!) {
-		updateCartProduct(id: $id, increment: $increment) {
-			id
-			quantity
-		}
-	}
-`;
-
-const DECREMENT_CART_PRODUCT_MUTATION = gql`
+const UPDATE_CART_PRODUCT_MUTATION = gql`
 	mutation updateCartProduct($id: ID!, $increment: Boolean!) {
 		updateCartProduct(id: $id, increment: $increment) {
 			id
@@ -35,7 +26,7 @@ const REMOVE_FROM_CART_MUTATION = gql`
 const Composed = adopt({
 	incrementCartProduct: ({ render, id }) => (
 		<Mutation
-			mutation={INCREMENT_CART_PRODUCT_MUTATION}
+			mutation={UPDATE_CART_PRODUCT_MUTATION}
 			variables={{
 				id: id,
 				increment: true
@@ -51,7 +42,7 @@ const Composed = adopt({
 	),
 	decrementCartProduct: ({ render, id }) => (
 		<Mutation
-			mutation={DECREMENT_CART_PRODUCT_MUTATION}
+			mutation={UPDATE_CART_PRODUCT_MUTATION}
 			variables={{
 				id: id,
 				increment: false
@@ -142,3 +133,4 @@ CartProduct.propTypes = {
 };
 
 export default CartProduct;
+export { UPDATE_CART_PRODUCT_MUTATION, REMOVE_FROM_CART_MUTATION };

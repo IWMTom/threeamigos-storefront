@@ -1,5 +1,5 @@
 const ProductHeader = props => (
-	<div id="products-header">
+	<div class="page-header">
 		<div className="container">
 			<h1>
 				<i className={props.icon ? props.icon : "ic_bookmark"} />

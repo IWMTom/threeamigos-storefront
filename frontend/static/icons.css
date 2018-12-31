@@ -24,11 +24,12 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ic_shopping_cart:before {
-  content: "\e900";
-}
 .ic_newsletter:before {
   content: "\e901";
+  color: #fff;
+}
+.ic_shopping_cart:before {
+  content: "\e900";
 }
 .ic_pencil:before {
   content: "\e905";
@@ -36,12 +37,21 @@ i {
 .ic_headphones:before {
   content: "\e910";
 }
+.ic_credit-card:before {
+  content: "\e93f";
+}
 .ic_mobile:before {
   content: "\e958";
 }
 .ic_drawer2:before {
   content: "\e95d";
 }
+.ic_truck:before {
+  content: "\e9b0";
+}
 .ic_bookmark:before {
   content: "\e9d2";
+}
+.ic_checkmark:before {
+  content: "\ea10";
 }

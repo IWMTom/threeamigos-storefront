@@ -4,6 +4,7 @@ import User from "./User";
 import CartProduct from "./CartProduct";
 import calcTotalPrice from "../lib/calcTotalPrice";
 import formatMoney from "../lib/formatMoney";
+import { Link } from "../routes";
 
 const LOCAL_STATE_QUERY = gql`
 	query {
@@ -52,14 +53,27 @@ const Cart = () => (
 										</ul>
 
 										{me.cart.length > 0 && (
-											<span>
-												Total:{" "}
-												<strong>
-													{formatMoney(
-														calcTotalPrice(me.cart)
-													)}
-												</strong>
-											</span>
+											<React.Fragment>
+												<span>
+													Total:{" "}
+													<strong>
+														{formatMoney(
+															calcTotalPrice(
+																me.cart
+															)
+														)}
+													</strong>
+												</span>
+
+												<Link route="/checkout">
+													<a
+														className="btn btn-pink"
+														onClick={toggleCart}
+													>
+														Checkout
+													</a>
+												</Link>
+											</React.Fragment>
 										)}
 
 										{me.cart.length === 0 && (
