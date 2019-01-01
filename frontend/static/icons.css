@@ -55,3 +55,9 @@ i {
 .ic_checkmark:before {
   content: "\ea10";
 }
+.ic_plus:before {
+  content: "\ea0a";
+}
+.ic_cross:before {
+  content: "\ea0f";
+}

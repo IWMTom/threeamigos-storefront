@@ -40,6 +40,8 @@ $colour_pink_gradient: linear-gradient(-135deg, #fe7379 0%, #f6519f 100%);
 $colour_pink_gradient_border: linear-gradient(to top, #fe7379, #f6519f) 1 100%;
 $colour_green: #2ccc71;
 $colour_red: #e74c3c;
+$colour_visa: #0197f6;
+$colour_mastercard: #ff524e;
 
 ::selection {
 	background: $colour_pink;
@@ -61,9 +63,11 @@ h3,
 h4,
 h5,
 h6,
+input,
 label,
 p,
 span,
+strong,
 blockquote {
 	font-family: $font-stack;
 }
@@ -368,6 +372,41 @@ em.small-badge {
 	background: white;
 	border-radius: 2px;
 	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06);
+}
+
+div#modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.75);
+	z-index: 999999;
+	visibility: hidden;
+	opacity: 0;
+	transition: 0.2s all;
+
+	&.show {
+		visibility: visible;
+		opacity: 1;
+		transition: 0.2s all;
+	}
+
+	div#close {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
+
+	div#modal-content {
+		width: 800px;
+		position: relative;
+		box-sizing: border-box;
+		margin: auto;
+		@include vertical-align();
+	}
 }
 
 header {
@@ -1473,6 +1512,366 @@ div#checkout-buttons {
 			vertical-align: sub;
 			margin-left: 0.8em;
 			color: rgba(255, 255, 255, 0.75);
+		}
+	}
+}
+
+section#checkout-payment {
+	margin-bottom: 2em;
+	padding: 3em 4em;
+
+	div.pure-u-1-3 {
+		padding: 1em;
+	}
+
+	button.credit-card {
+		width: 100%;
+		border-radius: 8px;
+		position: relative;
+		text-align: left;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+		outline: none;
+		transition: 0.2s all;
+
+		&:hover {
+			box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15),
+				inset 0px 0px 10px rgba(0, 0, 0, 0.41);
+			transition: 0.2s all;
+		}
+
+		&:before {
+			content: "";
+			display: block;
+			padding-top: 57.5%;
+		}
+
+		&.add {
+			border: 2px dashed $colour_grey_90;
+			background: none;
+			color: $colour_grey_70;
+
+			span {
+				top: calc(50% - 1.5em);
+				font-size: em(11);
+				font-weight: 600;
+				text-shadow: none;
+
+				i {
+					display: block;
+					margin-bottom: 0.75em;
+					font-size: 1.5em;
+				}
+			}
+
+			&:hover {
+				box-shadow: none;
+				border-color: $colour_pink;
+				color: $colour_pink;
+			}
+		}
+
+		&.visa {
+			background: url("/static/img/visa.png"), $colour_visa;
+			background-repeat: no-repeat;
+			background-size: 56px;
+			background-position: 2em 1.5em;
+		}
+
+		&.mastercard {
+			background: url("/static/img/mastercard.png"), $colour_mastercard;
+			background-repeat: no-repeat;
+			background-size: 42px;
+			background-position: 2em 1.5em;
+		}
+
+		div.blackout {
+			background: rgba(0, 0, 0, 0.5);
+			width: 100%;
+			height: 100%;
+			border-radius: 8px;
+			z-index: 10;
+			opacity: 0;
+			visibility: hidden;
+			transition: 0.2s all;
+		}
+		div.selected {
+			width: 100%;
+			height: 2em;
+			background: rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: initial;
+			bottom: 0;
+			border-radius: 0px 0px 8px 8px;
+			line-height: 2em;
+			font-size: 0.75em;
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+			visibility: hidden;
+			opacity: 0;
+			transition: 0.2s all;
+
+			span {
+				color: white;
+				font-weight: 700;
+			}
+		}
+
+		&.not-selected {
+			div.blackout {
+				opacity: 1;
+				visibility: visible;
+				transition: 0.2s all;
+			}
+		}
+
+		&.selected {
+			div.selected {
+				opacity: 1;
+				visibility: visible;
+				transition: 0.2s all;
+			}
+		}
+
+		& > div {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			& > span {
+				top: calc(50% - 1em);
+				position: absolute;
+				left: 0;
+				right: 0;
+				display: block;
+				text-align: center;
+
+				em {
+					font-style: normal;
+					color: rgba(255, 255, 255, 0.75);
+					margin-right: 2em;
+					font-family: $header-font-stack;
+					letter-spacing: 2px;
+				}
+
+				strong {
+					color: white;
+					font-weight: 500;
+				}
+			}
+
+			& > div {
+				position: absolute;
+				bottom: 2em;
+
+				span {
+					display: block;
+					font-size: 0.7em;
+					color: rgba(255, 255, 255, 0.75);
+					margin-bottom: 0.2em;
+				}
+
+				strong {
+					display: block;
+					font-size: 0.8em;
+					color: white;
+					font-weight: 600;
+				}
+
+				&:first-of-type {
+					left: 2em;
+				}
+				&:last-of-type {
+					right: 2em;
+
+					span {
+						text-align: right;
+					}
+				}
+			}
+		}
+	}
+}
+
+div#modal.add-card {
+	button#close {
+		position: absolute;
+		top: 1em;
+		right: 0.75em;
+		background: none;
+		z-index: 9999;
+		color: #6d7b98;
+		font-size: 0.75em;
+		outline: none;
+		transition: 0.2s color;
+
+		&:hover {
+			color: white;
+			transition: 0.2s color;
+		}
+	}
+
+	div#modal-content {
+		background: none;
+
+		div#add-card-content {
+			background: white;
+			padding: em(40) em(50);
+
+			h2 {
+				font-size: em(18);
+				font-weight: 600;
+			}
+
+			form {
+				div[class*="pure-u-"] {
+					padding: 0;
+				}
+
+				div#expiry_date {
+					padding-right: em(10);
+				}
+
+				div#security_code {
+					padding-left: em(10);
+				}
+
+				label {
+					color: $colour_grey_50;
+					font-size: em(12);
+					font-weight: 600;
+					display: block;
+					margin-bottom: em(10);
+					margin-top: em(20);
+				}
+
+				input[type="text"] {
+					background: $colour_grey_94;
+					border-radius: 4px;
+					width: 100%;
+					border: none;
+					padding: 1em 1.5em;
+					box-sizing: border-box;
+					outline: none;
+					color: $colour_grey_40;
+				}
+			}
+		}
+		div#add-card-sidebar {
+			background: #212734;
+			height: 380px;
+			text-align: center;
+			position: relative;
+			padding: em(60) em(35);
+
+			div.credit-card {
+				width: 100%;
+				margin-bottom: 4em;
+				border-radius: 8px;
+				position: relative;
+				text-align: left;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+				outline: none;
+				transition: 0.2s all;
+				background: #333b4e;
+
+				&:before {
+					content: "";
+					display: block;
+					padding-top: 57.5%;
+				}
+
+				&.visa {
+					background: url("/static/img/visa.png"), $colour_visa;
+					background-repeat: no-repeat;
+					background-size: 56px;
+					background-position: 2em 1.5em;
+				}
+
+				&.mastercard {
+					background: url("/static/img/mastercard.png"),
+						$colour_mastercard;
+					background-repeat: no-repeat;
+					background-size: 42px;
+					background-position: 2em 1.5em;
+				}
+
+				& > div {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+
+					& > span {
+						top: calc(50% - 1em);
+						position: absolute;
+						left: 0;
+						right: 0;
+						display: block;
+						text-align: center;
+
+						em {
+							font-style: normal;
+							color: rgba(255, 255, 255, 0.75);
+							margin-right: 2em;
+							letter-spacing: 2px;
+							font-size: 0.8em;
+
+							i {
+								font-size: 1.75em;
+								font-family: $font-stack !important;
+								line-height: 0;
+							}
+						}
+
+						strong {
+							color: white;
+							font-weight: 500;
+
+							i {
+								font-size: 1.4em;
+								font-family: $font-stack !important;
+								color: rgba(255, 255, 255, 0.75);
+								font-weight: 400;
+								margin-right: 2px;
+								line-height: 0;
+							}
+						}
+					}
+
+					& > div {
+						position: absolute;
+						bottom: 2em;
+
+						span {
+							display: block;
+							font-size: 0.7em;
+							color: rgba(255, 255, 255, 0.75);
+							margin-bottom: 0.2em;
+						}
+
+						strong {
+							display: block;
+							font-size: 0.8em;
+							color: white;
+							font-weight: 600;
+							height: 0.8em;
+						}
+
+						&:first-of-type {
+							left: 2em;
+						}
+						&:last-of-type {
+							right: 2em;
+
+							span {
+								text-align: right;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
