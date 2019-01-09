@@ -1,6 +1,43 @@
 import Modal from "./Modal";
 import Cleave from "cleave.js/react";
 import ReactHtmlParser from "react-html-parser";
+import gql from "graphql-tag";
+import User from "./User";
+import { Query, Mutation } from "react-apollo";
+
+const CURRENT_USER_QUERY_WITH_CARDS = gql`
+	query {
+		me {
+			id
+			cardDetails {
+				id
+				card_number
+				cardholder_name
+				expiry_date
+				security_code
+				type
+			}
+		}
+	}
+`;
+
+const ADD_CARD_MUTATION = gql`
+	mutation addCard(
+		$number: String!
+		$name: String!
+		$expiry: String!
+		$security: String!
+	) {
+		addCard(
+			number: $number
+			name: $name
+			expiry: $expiry
+			security: $security
+		) {
+			id
+		}
+	}
+`;
 
 class CheckoutPayment extends React.Component {
 	state = {
@@ -206,107 +243,129 @@ class CheckoutPayment extends React.Component {
 									</div>
 								</div>
 							</div>
-							<button
-								className="btn btn-pink"
-								disabled={this.validateForm()}
+							<Mutation
+								mutation={ADD_CARD_MUTATION}
+								variables={{
+									number: this.state.card_number,
+									name: this.state.cardholder_name,
+									expiry: this.state.expiry_date,
+									security: this.state.security_code
+								}}
+								refetchQueries={[
+									{
+										query: CURRENT_USER_QUERY_WITH_CARDS
+									}
+								]}
 							>
-								Add Card
-							</button>
+								{(addCard, { loading }) => (
+									<button
+										className="btn btn-pink"
+										disabled={
+											loading || this.validateForm()
+										}
+										onClick={e => {
+											addCard();
+											this.toggleModal();
+										}}
+									>
+										Add{loading && "ing"} Card
+									</button>
+								)}
+							</Mutation>
 						</div>
 					</div>
 				</Modal>
 
-				<section id="checkout-payment" className="card">
-					<div className="pure-g">
-						<div className="pure-u-1-3">
-							<button
-								name="card1"
-								className={
-									this.state.selectedCard !== ""
-										? this.state.selectedCard === "card1"
-											? "credit-card visa selected"
-											: "credit-card visa not-selected"
-										: "credit-card visa"
-								}
-								onClick={this.selectCard}
-							>
-								<div className="blackout" />
-								<div className="selected">
-									<span>SELECTED</span>
-								</div>
+				<User newQuery={CURRENT_USER_QUERY_WITH_CARDS}>
+					{({ data: { me } }) => {
+						if (!me) return null;
+						return (
+							<section id="checkout-payment" className="card">
+								<div className="pure-g">
+									{me.cardDetails.map(card => (
+										<div
+											key={card.id}
+											className="pure-u-1-3"
+										>
+											<button
+												name={card.id}
+												className={
+													this.state.selectedCard !==
+													""
+														? this.state
+																.selectedCard ===
+														  card.id
+															? "credit-card " +
+															  card.type +
+															  " selected"
+															: "credit-card " +
+															  card.type +
+															  " not-selected"
+														: "credit-card " +
+														  card.type
+												}
+												onClick={this.selectCard}
+											>
+												<div className="blackout" />
+												<div className="selected">
+													<span>SELECTED</span>
+												</div>
 
-								<div>
-									<span>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<strong>7548</strong>
-									</span>
+												<div>
+													<span>
+														<em>
+															&bull;&bull;&bull;&bull;
+														</em>
+														<em>
+															&bull;&bull;&bull;&bull;
+														</em>
+														<em>
+															&bull;&bull;&bull;&bull;
+														</em>
+														<strong>
+															{card.card_number.slice(
+																-4
+															)}
+														</strong>
+													</span>
 
-									<div>
-										<span>Card Holder</span>
-										<strong>Tom Wilson</strong>
+													<div>
+														<span>Card Holder</span>
+														<strong>
+															{
+																card.cardholder_name
+															}
+														</strong>
+													</div>
+
+													<div>
+														<span>Expiry</span>
+														<strong>
+															{card.expiry_date}
+														</strong>
+													</div>
+												</div>
+											</button>
+										</div>
+									))}
+									<div className="pure-u-1-3">
+										<button
+											className="credit-card add"
+											onClick={this.toggleModal}
+										>
+											<div>
+												<span>
+													<i className="ic_plus" />
+													Add a new payment method
+												</span>
+											</div>
+										</button>
 									</div>
-
-									<div>
-										<span>Expiry</span>
-										<strong>08/2020</strong>
-									</div>
 								</div>
-							</button>
-						</div>
-						<div className="pure-u-1-3">
-							<button
-								name="card2"
-								className={
-									this.state.selectedCard !== ""
-										? this.state.selectedCard === "card2"
-											? "credit-card mastercard selected"
-											: "credit-card mastercard not-selected"
-										: "credit-card mastercard"
-								}
-								onClick={this.selectCard}
-							>
-								<div className="blackout" />
-								<div className="selected">
-									<span>SELECTED</span>
-								</div>
-
-								<div>
-									<span>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<em>&bull;&bull;&bull;&bull;</em>
-										<strong>8845</strong>
-									</span>
-
-									<div>
-										<span>Card Holder</span>
-										<strong>Tom Wilson</strong>
-									</div>
-
-									<div>
-										<span>Expiry</span>
-										<strong>04/2021</strong>
-									</div>
-								</div>
-							</button>
-						</div>
-						<div className="pure-u-1-3">
-							<button
-								className="credit-card add"
-								onClick={this.toggleModal}
-							>
-								<div>
-									<span>
-										<i className="ic_plus" />
-										Add a new payment method
-									</span>
-								</div>
-							</button>
-						</div>
-					</div>
-				</section>
+							</section>
+						);
+					}}
+				</User>
 
 				<div id="checkout-buttons">
 					<button
@@ -317,7 +376,11 @@ class CheckoutPayment extends React.Component {
 					</button>
 					<button
 						className="btn btn-pink"
-						onClick={() => this.props.nextStep(3)}
+						disabled={this.state.selectedCard ? false : true}
+						onClick={() => {
+							this.props.nextStep(3);
+							this.props.updatePayment(this.state.selectedCard);
+						}}
 					>
 						Continue to Delivery <i className="ic_truck" />
 					</button>

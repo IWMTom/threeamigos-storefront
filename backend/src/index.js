@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: "variables.env" });
 const createServer = require("./createServer");
+const bodyParser = require("body-parser");
 const db = require("./db");
 
 const server = createServer();
@@ -17,6 +18,25 @@ server.express.use((req, res, next) => {
 	}
 
 	next();
+});
+
+server.express.use(bodyParser.json());
+server.express.use(bodyParser.urlencoded({ extended: true }));
+server.express.use(bodyParser.raw());
+
+server.express.post("/api/products/update", (req, res) => {
+	console.log(req.body);
+	res.send("Thanks!");
+});
+
+server.express.post("/api/brands/update", (req, res) => {
+	console.log(req.body);
+	res.send("Thanks!");
+});
+
+server.express.post("/api/categories/update", (req, res) => {
+	console.log(req.body);
+	res.send("Thanks!");
 });
 
 server.start(

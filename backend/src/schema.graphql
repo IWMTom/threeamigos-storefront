@@ -4,6 +4,20 @@ type Mutation {
 	addToCart(id: ID!): CartProduct
 	updateCartProduct(id: ID!, increment: Boolean!): CartProduct
 	removeFromCart(id: ID!): CartProduct
+	addCard(
+		number: String!
+		name: String!
+		expiry: String!
+		security: String!
+	): CardDetail
+	addAddress(
+		house_number: String!
+		street_name: String!
+		city: String!
+		county: String!
+		postcode: String!
+	): UserAddress
+	createOrder(card_id: String!, address_id: String!): Order
 }
 
 type Query {
@@ -51,4 +65,6 @@ type User {
 	name: String!
 	photo_url: String
 	cart: [CartProduct!]!
+	cardDetails: [CardDetail]
+	addresses: [UserAddress]
 }

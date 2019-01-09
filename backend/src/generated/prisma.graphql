@@ -1,7 +1,11 @@
 # source: http://192.168.0.98:4444
-# timestamp: Fri Dec 28 2018 14:31:52 GMT+0000 (Greenwich Mean Time)
+# timestamp: Tue Jan 08 2019 13:14:18 GMT+0000 (Greenwich Mean Time)
 
 type AggregateBrand {
+  count: Int!
+}
+
+type AggregateCardDetail {
   count: Int!
 }
 
@@ -338,6 +342,691 @@ input BrandWhereInput {
 }
 
 input BrandWhereUniqueInput {
+  id: ID
+}
+
+type CardDetail implements Node {
+  id: ID!
+  user: User!
+  card_number: String!
+  cardholder_name: String!
+  expiry_date: String!
+  security_code: String!
+  type: String!
+}
+
+"""A connection to a list of items."""
+type CardDetailConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CardDetailEdge]!
+  aggregate: AggregateCardDetail!
+}
+
+input CardDetailCreateInput {
+  card_number: String!
+  cardholder_name: String!
+  expiry_date: String!
+  security_code: String!
+  type: String!
+  user: UserCreateOneWithoutCardDetailsInput!
+}
+
+input CardDetailCreateManyWithoutUserInput {
+  create: [CardDetailCreateWithoutUserInput!]
+  connect: [CardDetailWhereUniqueInput!]
+}
+
+input CardDetailCreateWithoutUserInput {
+  card_number: String!
+  cardholder_name: String!
+  expiry_date: String!
+  security_code: String!
+  type: String!
+}
+
+"""An edge in a connection."""
+type CardDetailEdge {
+  """The item at the end of the edge."""
+  node: CardDetail!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CardDetailOrderByInput {
+  id_ASC
+  id_DESC
+  card_number_ASC
+  card_number_DESC
+  cardholder_name_ASC
+  cardholder_name_DESC
+  expiry_date_ASC
+  expiry_date_DESC
+  security_code_ASC
+  security_code_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CardDetailPreviousValues {
+  id: ID!
+  card_number: String!
+  cardholder_name: String!
+  expiry_date: String!
+  security_code: String!
+  type: String!
+}
+
+input CardDetailScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CardDetailScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CardDetailScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CardDetailScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  card_number: String
+
+  """All values that are not equal to given value."""
+  card_number_not: String
+
+  """All values that are contained in given list."""
+  card_number_in: [String!]
+
+  """All values that are not contained in given list."""
+  card_number_not_in: [String!]
+
+  """All values less than the given value."""
+  card_number_lt: String
+
+  """All values less than or equal the given value."""
+  card_number_lte: String
+
+  """All values greater than the given value."""
+  card_number_gt: String
+
+  """All values greater than or equal the given value."""
+  card_number_gte: String
+
+  """All values containing the given string."""
+  card_number_contains: String
+
+  """All values not containing the given string."""
+  card_number_not_contains: String
+
+  """All values starting with the given string."""
+  card_number_starts_with: String
+
+  """All values not starting with the given string."""
+  card_number_not_starts_with: String
+
+  """All values ending with the given string."""
+  card_number_ends_with: String
+
+  """All values not ending with the given string."""
+  card_number_not_ends_with: String
+  cardholder_name: String
+
+  """All values that are not equal to given value."""
+  cardholder_name_not: String
+
+  """All values that are contained in given list."""
+  cardholder_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  cardholder_name_not_in: [String!]
+
+  """All values less than the given value."""
+  cardholder_name_lt: String
+
+  """All values less than or equal the given value."""
+  cardholder_name_lte: String
+
+  """All values greater than the given value."""
+  cardholder_name_gt: String
+
+  """All values greater than or equal the given value."""
+  cardholder_name_gte: String
+
+  """All values containing the given string."""
+  cardholder_name_contains: String
+
+  """All values not containing the given string."""
+  cardholder_name_not_contains: String
+
+  """All values starting with the given string."""
+  cardholder_name_starts_with: String
+
+  """All values not starting with the given string."""
+  cardholder_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  cardholder_name_ends_with: String
+
+  """All values not ending with the given string."""
+  cardholder_name_not_ends_with: String
+  expiry_date: String
+
+  """All values that are not equal to given value."""
+  expiry_date_not: String
+
+  """All values that are contained in given list."""
+  expiry_date_in: [String!]
+
+  """All values that are not contained in given list."""
+  expiry_date_not_in: [String!]
+
+  """All values less than the given value."""
+  expiry_date_lt: String
+
+  """All values less than or equal the given value."""
+  expiry_date_lte: String
+
+  """All values greater than the given value."""
+  expiry_date_gt: String
+
+  """All values greater than or equal the given value."""
+  expiry_date_gte: String
+
+  """All values containing the given string."""
+  expiry_date_contains: String
+
+  """All values not containing the given string."""
+  expiry_date_not_contains: String
+
+  """All values starting with the given string."""
+  expiry_date_starts_with: String
+
+  """All values not starting with the given string."""
+  expiry_date_not_starts_with: String
+
+  """All values ending with the given string."""
+  expiry_date_ends_with: String
+
+  """All values not ending with the given string."""
+  expiry_date_not_ends_with: String
+  security_code: String
+
+  """All values that are not equal to given value."""
+  security_code_not: String
+
+  """All values that are contained in given list."""
+  security_code_in: [String!]
+
+  """All values that are not contained in given list."""
+  security_code_not_in: [String!]
+
+  """All values less than the given value."""
+  security_code_lt: String
+
+  """All values less than or equal the given value."""
+  security_code_lte: String
+
+  """All values greater than the given value."""
+  security_code_gt: String
+
+  """All values greater than or equal the given value."""
+  security_code_gte: String
+
+  """All values containing the given string."""
+  security_code_contains: String
+
+  """All values not containing the given string."""
+  security_code_not_contains: String
+
+  """All values starting with the given string."""
+  security_code_starts_with: String
+
+  """All values not starting with the given string."""
+  security_code_not_starts_with: String
+
+  """All values ending with the given string."""
+  security_code_ends_with: String
+
+  """All values not ending with the given string."""
+  security_code_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+}
+
+type CardDetailSubscriptionPayload {
+  mutation: MutationType!
+  node: CardDetail
+  updatedFields: [String!]
+  previousValues: CardDetailPreviousValues
+}
+
+input CardDetailSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CardDetailSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CardDetailSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CardDetailSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CardDetailWhereInput
+}
+
+input CardDetailUpdateInput {
+  card_number: String
+  cardholder_name: String
+  expiry_date: String
+  security_code: String
+  type: String
+  user: UserUpdateOneRequiredWithoutCardDetailsInput
+}
+
+input CardDetailUpdateManyDataInput {
+  card_number: String
+  cardholder_name: String
+  expiry_date: String
+  security_code: String
+  type: String
+}
+
+input CardDetailUpdateManyMutationInput {
+  card_number: String
+  cardholder_name: String
+  expiry_date: String
+  security_code: String
+  type: String
+}
+
+input CardDetailUpdateManyWithoutUserInput {
+  create: [CardDetailCreateWithoutUserInput!]
+  connect: [CardDetailWhereUniqueInput!]
+  disconnect: [CardDetailWhereUniqueInput!]
+  delete: [CardDetailWhereUniqueInput!]
+  update: [CardDetailUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [CardDetailUpdateManyWithWhereNestedInput!]
+  deleteMany: [CardDetailScalarWhereInput!]
+  upsert: [CardDetailUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CardDetailUpdateManyWithWhereNestedInput {
+  where: CardDetailScalarWhereInput!
+  data: CardDetailUpdateManyDataInput!
+}
+
+input CardDetailUpdateWithoutUserDataInput {
+  card_number: String
+  cardholder_name: String
+  expiry_date: String
+  security_code: String
+  type: String
+}
+
+input CardDetailUpdateWithWhereUniqueWithoutUserInput {
+  where: CardDetailWhereUniqueInput!
+  data: CardDetailUpdateWithoutUserDataInput!
+}
+
+input CardDetailUpsertWithWhereUniqueWithoutUserInput {
+  where: CardDetailWhereUniqueInput!
+  update: CardDetailUpdateWithoutUserDataInput!
+  create: CardDetailCreateWithoutUserInput!
+}
+
+input CardDetailWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CardDetailWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CardDetailWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CardDetailWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  card_number: String
+
+  """All values that are not equal to given value."""
+  card_number_not: String
+
+  """All values that are contained in given list."""
+  card_number_in: [String!]
+
+  """All values that are not contained in given list."""
+  card_number_not_in: [String!]
+
+  """All values less than the given value."""
+  card_number_lt: String
+
+  """All values less than or equal the given value."""
+  card_number_lte: String
+
+  """All values greater than the given value."""
+  card_number_gt: String
+
+  """All values greater than or equal the given value."""
+  card_number_gte: String
+
+  """All values containing the given string."""
+  card_number_contains: String
+
+  """All values not containing the given string."""
+  card_number_not_contains: String
+
+  """All values starting with the given string."""
+  card_number_starts_with: String
+
+  """All values not starting with the given string."""
+  card_number_not_starts_with: String
+
+  """All values ending with the given string."""
+  card_number_ends_with: String
+
+  """All values not ending with the given string."""
+  card_number_not_ends_with: String
+  cardholder_name: String
+
+  """All values that are not equal to given value."""
+  cardholder_name_not: String
+
+  """All values that are contained in given list."""
+  cardholder_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  cardholder_name_not_in: [String!]
+
+  """All values less than the given value."""
+  cardholder_name_lt: String
+
+  """All values less than or equal the given value."""
+  cardholder_name_lte: String
+
+  """All values greater than the given value."""
+  cardholder_name_gt: String
+
+  """All values greater than or equal the given value."""
+  cardholder_name_gte: String
+
+  """All values containing the given string."""
+  cardholder_name_contains: String
+
+  """All values not containing the given string."""
+  cardholder_name_not_contains: String
+
+  """All values starting with the given string."""
+  cardholder_name_starts_with: String
+
+  """All values not starting with the given string."""
+  cardholder_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  cardholder_name_ends_with: String
+
+  """All values not ending with the given string."""
+  cardholder_name_not_ends_with: String
+  expiry_date: String
+
+  """All values that are not equal to given value."""
+  expiry_date_not: String
+
+  """All values that are contained in given list."""
+  expiry_date_in: [String!]
+
+  """All values that are not contained in given list."""
+  expiry_date_not_in: [String!]
+
+  """All values less than the given value."""
+  expiry_date_lt: String
+
+  """All values less than or equal the given value."""
+  expiry_date_lte: String
+
+  """All values greater than the given value."""
+  expiry_date_gt: String
+
+  """All values greater than or equal the given value."""
+  expiry_date_gte: String
+
+  """All values containing the given string."""
+  expiry_date_contains: String
+
+  """All values not containing the given string."""
+  expiry_date_not_contains: String
+
+  """All values starting with the given string."""
+  expiry_date_starts_with: String
+
+  """All values not starting with the given string."""
+  expiry_date_not_starts_with: String
+
+  """All values ending with the given string."""
+  expiry_date_ends_with: String
+
+  """All values not ending with the given string."""
+  expiry_date_not_ends_with: String
+  security_code: String
+
+  """All values that are not equal to given value."""
+  security_code_not: String
+
+  """All values that are contained in given list."""
+  security_code_in: [String!]
+
+  """All values that are not contained in given list."""
+  security_code_not_in: [String!]
+
+  """All values less than the given value."""
+  security_code_lt: String
+
+  """All values less than or equal the given value."""
+  security_code_lte: String
+
+  """All values greater than the given value."""
+  security_code_gt: String
+
+  """All values greater than or equal the given value."""
+  security_code_gte: String
+
+  """All values containing the given string."""
+  security_code_contains: String
+
+  """All values not containing the given string."""
+  security_code_not_contains: String
+
+  """All values starting with the given string."""
+  security_code_starts_with: String
+
+  """All values not starting with the given string."""
+  security_code_not_starts_with: String
+
+  """All values ending with the given string."""
+  security_code_ends_with: String
+
+  """All values not ending with the given string."""
+  security_code_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  user: UserWhereInput
+}
+
+input CardDetailWhereUniqueInput {
   id: ID
 }
 
@@ -1011,31 +1700,37 @@ type Mutation {
   createBrand(data: BrandCreateInput!): Brand!
   createUser(data: UserCreateInput!): User!
   createCartProduct(data: CartProductCreateInput!): CartProduct!
+  createCardDetail(data: CardDetailCreateInput!): CardDetail!
   createProduct(data: ProductCreateInput!): Product!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Brand
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCartProduct(data: CartProductUpdateInput!, where: CartProductWhereUniqueInput!): CartProduct
+  updateCardDetail(data: CardDetailUpdateInput!, where: CardDetailWhereUniqueInput!): CardDetail
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteBrand(where: BrandWhereUniqueInput!): Brand
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCartProduct(where: CartProductWhereUniqueInput!): CartProduct
+  deleteCardDetail(where: CardDetailWhereUniqueInput!): CardDetail
   deleteProduct(where: ProductWhereUniqueInput!): Product
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   upsertBrand(where: BrandWhereUniqueInput!, create: BrandCreateInput!, update: BrandUpdateInput!): Brand!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCartProduct(where: CartProductWhereUniqueInput!, create: CartProductCreateInput!, update: CartProductUpdateInput!): CartProduct!
+  upsertCardDetail(where: CardDetailWhereUniqueInput!, create: CardDetailCreateInput!, update: CardDetailUpdateInput!): CardDetail!
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   updateManyBrands(data: BrandUpdateManyMutationInput!, where: BrandWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCartProducts(data: CartProductUpdateManyMutationInput!, where: CartProductWhereInput): BatchPayload!
+  updateManyCardDetails(data: CardDetailUpdateManyMutationInput!, where: CardDetailWhereInput): BatchPayload!
   updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   deleteManyBrands(where: BrandWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCartProducts(where: CartProductWhereInput): BatchPayload!
+  deleteManyCardDetails(where: CardDetailWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
 }
 
@@ -1878,16 +2573,19 @@ type Query {
   brands(where: BrandWhereInput, orderBy: BrandOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Brand]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   cartProducts(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CartProduct]!
+  cardDetails(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardDetail]!
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
   category(where: CategoryWhereUniqueInput!): Category
   brand(where: BrandWhereUniqueInput!): Brand
   user(where: UserWhereUniqueInput!): User
   cartProduct(where: CartProductWhereUniqueInput!): CartProduct
+  cardDetail(where: CardDetailWhereUniqueInput!): CardDetail
   product(where: ProductWhereUniqueInput!): Product
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   brandsConnection(where: BrandWhereInput, orderBy: BrandOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BrandConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   cartProductsConnection(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CartProductConnection!
+  cardDetailsConnection(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardDetailConnection!
   productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
 
   """Fetches an object given its ID"""
@@ -1902,6 +2600,7 @@ type Subscription {
   brand(where: BrandSubscriptionWhereInput): BrandSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   cartProduct(where: CartProductSubscriptionWhereInput): CartProductSubscriptionPayload
+  cardDetail(where: CardDetailSubscriptionWhereInput): CardDetailSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
 }
 
@@ -1910,6 +2609,7 @@ type User implements Node {
   name: String!
   photo_url: String
   cart(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CartProduct!]
+  cardDetails(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardDetail!]
 }
 
 """A connection to a list of items."""
@@ -1926,6 +2626,12 @@ input UserCreateInput {
   name: String!
   photo_url: String
   cart: CartProductCreateManyWithoutUserInput
+  cardDetails: CardDetailCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutCardDetailsInput {
+  create: UserCreateWithoutCardDetailsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCartInput {
@@ -1933,9 +2639,16 @@ input UserCreateOneWithoutCartInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateWithoutCardDetailsInput {
+  name: String!
+  photo_url: String
+  cart: CartProductCreateManyWithoutUserInput
+}
+
 input UserCreateWithoutCartInput {
   name: String!
   photo_url: String
+  cardDetails: CardDetailCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -2009,11 +2722,19 @@ input UserUpdateInput {
   name: String
   photo_url: String
   cart: CartProductUpdateManyWithoutUserInput
+  cardDetails: CardDetailUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   photo_url: String
+}
+
+input UserUpdateOneRequiredWithoutCardDetailsInput {
+  create: UserCreateWithoutCardDetailsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutCardDetailsDataInput
+  upsert: UserUpsertWithoutCardDetailsInput
 }
 
 input UserUpdateOneRequiredWithoutCartInput {
@@ -2023,9 +2744,21 @@ input UserUpdateOneRequiredWithoutCartInput {
   upsert: UserUpsertWithoutCartInput
 }
 
+input UserUpdateWithoutCardDetailsDataInput {
+  name: String
+  photo_url: String
+  cart: CartProductUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCartDataInput {
   name: String
   photo_url: String
+  cardDetails: CardDetailUpdateManyWithoutUserInput
+}
+
+input UserUpsertWithoutCardDetailsInput {
+  update: UserUpdateWithoutCardDetailsDataInput!
+  create: UserCreateWithoutCardDetailsInput!
 }
 
 input UserUpsertWithoutCartInput {
@@ -2165,6 +2898,9 @@ input UserWhereInput {
   cart_every: CartProductWhereInput
   cart_some: CartProductWhereInput
   cart_none: CartProductWhereInput
+  cardDetails_every: CardDetailWhereInput
+  cardDetails_some: CardDetailWhereInput
+  cardDetails_none: CardDetailWhereInput
 }
 
 input UserWhereUniqueInput {

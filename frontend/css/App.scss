@@ -1876,6 +1876,242 @@ div#modal.add-card {
 	}
 }
 
+section#checkout-address {
+	margin-bottom: 2em;
+	padding: 3em 4em;
+
+	div.pure-u-1-3 {
+		padding: 1em;
+	}
+
+	button {
+		width: 100%;
+		position: relative;
+		outline: none;
+		border: 2px solid $colour_grey_90;
+		background: none;
+		padding: 1.5em 1em;
+		border-radius: 4px;
+		transition: 0.2s all;
+		color: $colour_grey_50;
+
+		&:hover {
+			border-color: $colour_pink;
+		}
+
+		&:before {
+			content: "";
+			display: block;
+			padding-top: 25%;
+		}
+
+		&.selected {
+			border-color: $colour_pink;
+			box-shadow: 0px 0px 10px $colour_pink;
+		}
+
+		& > div {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			div {
+				@include vertical-align();
+			}
+
+			h2 {
+				font-size: 1.25em;
+				font-weight: 900;
+				color: $colour_grey_15;
+			}
+
+			span {
+				display: block;
+				font-size: 0.8em;
+				font-weight: 500;
+			}
+		}
+
+		&.add {
+			border: 2px dashed $colour_grey_90;
+			background: none;
+			color: $colour_grey_70;
+
+			span {
+				top: calc(50% - 1.5em);
+				font-size: em(11);
+				font-weight: 600;
+				text-shadow: none;
+
+				i {
+					display: block;
+					margin-bottom: 0.75em;
+					font-size: 1.5em;
+				}
+			}
+
+			&:hover {
+				box-shadow: none;
+				border-color: $colour_pink;
+				color: $colour_pink;
+			}
+		}
+	}
+}
+
+div#modal.add-address {
+	button#close {
+		position: absolute;
+		top: 1em;
+		right: 0.75em;
+		background: none;
+		z-index: 9999;
+		color: #6d7b98;
+		font-size: 0.75em;
+		outline: none;
+		transition: 0.2s color;
+
+		&:hover {
+			color: black;
+			transition: 0.2s color;
+		}
+	}
+
+	div#modal-content {
+		background: none;
+
+		div#add-address-content {
+			background: white;
+			padding: em(40) em(50);
+
+			h2 {
+				font-size: em(18);
+				font-weight: 600;
+			}
+
+			form {
+				text-align: right;
+
+				div[class*="pure-u-"] {
+					padding: 0;
+				}
+
+				div#house_number,
+				div#city,
+				div#county {
+					padding-right: 1em;
+				}
+
+				label {
+					color: $colour_grey_50;
+					font-size: em(12);
+					font-weight: 600;
+					display: block;
+					margin-bottom: em(10);
+					margin-top: em(20);
+					text-align: left;
+				}
+
+				input[type="text"] {
+					background: $colour_grey_94;
+					border-radius: 4px;
+					width: 100%;
+					border: none;
+					padding: 1em 1.5em;
+					box-sizing: border-box;
+					outline: none;
+					color: $colour_grey_40;
+				}
+
+				button {
+					margin-top: 2em;
+				}
+			}
+		}
+	}
+}
+
+section#checkout-confirmation {
+	margin-bottom: 2em;
+	padding: 3em 4em;
+	text-align: center;
+
+	img {
+		margin-bottom: 1em;
+	}
+
+	h1 {
+		font-family: $header-font-stack;
+		color: $colour_pink;
+	}
+
+	p {
+		font-size: 0.9em;
+		color: $colour_grey_50;
+		margin-bottom: 2em;
+	}
+
+	div#receipt {
+		width: 75%;
+		margin: auto;
+		background: #fafafa;
+		border: 2px dashed #e4e4e4;
+
+		& > span {
+			text-align: right;
+			display: block;
+			padding-right: 1.25em;
+			padding-bottom: 0.75em;
+			border-top: 1px solid #f1f1f1;
+			padding-top: 0.75em;
+			font-size: 1.1em;
+			color: $colour_grey_50;
+
+			strong {
+				color: $colour_grey_15;
+			}
+		}
+
+		& > div {
+			border-bottom: 1px solid #f1f1f1;
+			margin-bottom: 0.5em;
+			padding-bottom: 0.5em;
+
+			&:last-of-type {
+				border-bottom: none;
+				margin-bottom: 0;
+				padding-bottom: 0;
+			}
+		}
+
+		div {
+			div {
+				height: 60px;
+				padding: 1em 0em;
+				box-sizing: content-box;
+
+				img {
+					height: 100%;
+				}
+
+				span {
+					font-weight: 500;
+				}
+
+				span,
+				strong {
+					display: block;
+					@include vertical-align();
+					font-size: 0.9em;
+					color: $colour_grey_15;
+				}
+			}
+		}
+	}
+}
+
 @media screen and (max-device-width: 900px) {
 	body {
 		font-size: 0.8em;

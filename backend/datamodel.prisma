@@ -33,6 +33,8 @@ type User{
 	name: String!
 	photo_url: String
 	cart: [CartProduct!]!
+	cardDetails: [CardDetail!]!
+	addresses: [UserAddress!]!
 }
 
 type CartProduct{
@@ -40,4 +42,44 @@ type CartProduct{
 	quantity: Int! @default(value: 1)
 	product: Product
 	user: User!
+}
+
+type CardDetail{
+	id: ID! @unique
+	user: User!
+	card_number: String!
+	cardholder_name: String!
+	expiry_date: String!
+	security_code: String!
+	type: String!
+}
+
+type UserAddress{
+	id: ID! @unique
+	user: User!
+	house_number: String!
+	street_name: String!
+	city: String!
+	county: String!
+	postcode: String!
+}
+
+type OrderProduct{
+	id: ID! @unique
+ 	name: String!
+ 	description: String!
+ 	image_url: String!
+ 	price: Int!
+ 	sale: Boolean!
+ 	quantity: Int! @default(value: "1")
+ 	user: User
+}
+
+type Order{
+	id: ID! @unique
+	products: [OrderProduct!]!
+	total: Int!
+	user: User!
+	card: CardDetail!
+	address: UserAddress!
 }
