@@ -93,6 +93,9 @@ h6 {
 	margin: 0;
 }
 
+.clearfix {
+	clear: both;
+}
 .radio {
 	margin-bottom: em(20);
 
@@ -631,12 +634,8 @@ header {
 					top: 70%;
 					background: rgba(255, 0, 0, 0.75);
 				}
-				button.increase {
-				}
+				button.increase,
 				button.decrease {
-					top: 35%;
-					border-top: 1px solid rgba(0, 0, 0, 0.15);
-
 					&:disabled {
 						background: rgba(50, 50, 50, 0.75);
 
@@ -644,6 +643,10 @@ header {
 							box-shadow: none;
 						}
 					}
+				}
+				button.decrease {
+					top: 35%;
+					border-top: 1px solid rgba(0, 0, 0, 0.15);
 				}
 				a.view-product {
 					width: calc(100% - 30px);
@@ -1137,6 +1140,12 @@ div#sorted-products {
 	}
 }
 
+div#products-sorting {
+	div.clearfix {
+		display: none;
+	}
+}
+
 div#products-filter {
 	article {
 		padding: em(25) em(25);
@@ -1179,6 +1188,10 @@ div#product-card {
 	padding: em(60) em(65);
 	margin-bottom: 2em;
 	position: relative;
+
+	div.clearfix {
+		display: none;
+	}
 
 	&.sale {
 		aside {
@@ -2123,5 +2136,230 @@ section#checkout-confirmation {
 		width: 100%;
 		padding: 1em;
 		box-sizing: border-box;
+	}
+
+	header {
+		div#header-top-menu {
+			button {
+				margin-right: 0 !important;
+
+				em {
+					display: none;
+				}
+			}
+			a {
+				display: none !important;
+			}
+		}
+
+		nav {
+			padding: 1.25em 2em;
+
+			a {
+				display: block;
+				text-align: center;
+				margin-right: 0;
+				margin-bottom: 1em;
+
+				&:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	div#cart {
+		width: 100% !important;
+		right: calc(-100% - 30px) !important;
+
+		&.visible {
+			right: 0 !important;
+		}
+	}
+
+	section#footer-top {
+		text-align: center;
+		padding: 2em !important;
+	}
+	section#footer-bottom {
+		padding: 1em 1.5em;
+	}
+
+	div#hero {
+		h1 {
+			padding: 1em;
+		}
+	}
+
+	section#sidebar {
+		display: none;
+	}
+
+	div.page-header {
+		h1 {
+			padding-left: 1em;
+		}
+	}
+
+	div#products-sorting {
+		div.clearfix {
+			display: block;
+		}
+
+		label {
+			border-radius: 0 !important;
+			height: 20px;
+			padding-bottom: 10px;
+			float: none;
+			display: block;
+			margin-bottom: 0.5em;
+			text-align: center;
+
+			&:before {
+				width: 100%;
+			}
+
+			&:after {
+				border-right: 2px solid #f0f0f0;
+			}
+		}
+	}
+	div#sorted-products {
+		margin-top: 2em;
+
+		a.product > div > div.product-content {
+			padding-left: 0;
+
+			aside {
+				top: 5px;
+			}
+		}
+	}
+
+	div#product-card {
+		&.sale {
+			aside {
+				margin-top: 1.5em;
+			}
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 0.75em;
+		}
+		img {
+			height: auto;
+			width: 100%;
+		}
+		aside {
+			float: none;
+			font-size: 1.5em;
+			margin-top: 1em;
+			text-align: center;
+
+			span {
+				margin-right: 0;
+			}
+		}
+		p {
+			max-width: 100%;
+			width: 100%;
+			text-align: center;
+			margin: 2em 0;
+		}
+		span.stock-level {
+			display: block;
+			text-align: center;
+			margin-right: 0;
+		}
+		button {
+			display: block;
+			width: 100%;
+			margin-top: 1em;
+		}
+		span#brand {
+			float: left;
+		}
+		span#category {
+			float: right;
+			margin-right: 0;
+		}
+		div.clearfix {
+			display: block;
+		}
+		del {
+			font-size: 0.6em;
+			top: -12px;
+		}
+	}
+
+	div#checkout-steps {
+		div.checkout-step {
+			height: 32px;
+			i {
+				width: 32px;
+				height: 32px;
+				line-height: 32px;
+				font-size: 0.8em;
+				margin: auto;
+				float: none;
+			}
+			div {
+				float: none;
+				text-align: center;
+				margin-top: 0.75em;
+			}
+		}
+
+		.pure-u-1-4 {
+			width: 25%;
+		}
+	}
+
+	div#checkout-cart-header {
+		display: none;
+	}
+
+	div.checkout-cart-row {
+		position: relative;
+
+		div.product > span {
+			float: right !important;
+			font-size: 1em !important;
+		}
+
+		div.remove > button {
+			position: absolute !important;
+			top: 1em !important;
+			right: 0.5em !important;
+		}
+
+		div.price,
+		div.total {
+			width: 16.6667%;
+		}
+
+		div.quantity {
+			width: 65%;
+		}
+	}
+
+	div#checkout-cart-total {
+		div.pure-u-18-24 {
+			padding: 0 !important;
+		}
+	}
+
+	div#modal-content {
+		width: 100% !important;
+		top: 0 !important;
+		transform: none !important;
+
+		div#expiry_date {
+			padding-right: 0 !important;
+		}
+		div#security_code {
+			padding-left: 0 !important;
+		}
 	}
 }

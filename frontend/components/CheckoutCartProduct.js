@@ -76,7 +76,11 @@ const CheckoutCartProduct = ({ cartProduct }) => (
 							</button>
 							<em>{cartProduct.quantity}</em>
 							<button
-								disabled={incrementCartProduct.loading}
+								disabled={
+									incrementCartProduct.loading ||
+									cartProduct.product.stock <=
+										cartProduct.quantity
+								}
 								onClick={incrementCartProduct}
 							>
 								&#43;

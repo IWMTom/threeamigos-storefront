@@ -62,6 +62,8 @@ const ProductSort = props => (
 				</label>
 			</div>
 		</div>
+
+		<div className="clearfix" />
 	</div>
 );
 

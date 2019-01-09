@@ -73,7 +73,7 @@ class SingleProduct extends Component {
 									<div className="pure-u-1-2">
 										<h1>{product.name}</h1>
 										<div>
-											<span>
+											<span id="category">
 												<i
 													className={
 														product.category.icon
@@ -81,10 +81,11 @@ class SingleProduct extends Component {
 												/>
 												{product.category.name}
 											</span>
-											<span>
+											<span id="brand">
 												<i className="ic_bookmark" />
 												{product.brand.name}
 											</span>
+											<div className="clearfix" />
 											<aside>
 												<span>
 													{product.sale && (

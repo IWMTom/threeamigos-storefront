@@ -6,7 +6,7 @@ import FilteredProductCard from "./FilteredProductCard";
 
 const FILTERED_PRODUCTS_QUERY = gql`
 	query FILTERED_PRODUCTS_QUERY(
-		$first: Int = 6
+		$first: Int
 		$orderBy: ProductOrderByInput
 		$where: ProductWhereInput
 	) {
@@ -27,52 +27,79 @@ const FILTERED_PRODUCTS_QUERY = gql`
 			slug
 			sale
 		}
+		productsConnection {
+			aggregate {
+				count
+			}
+		}
 	}
 `;
 
-const FilteredProducts = props => (
-	<div id="sorted-products">
-		<Query
-			query={FILTERED_PRODUCTS_QUERY}
-			variables={{
-				orderBy: props.sort_type,
-				where: {
-					AND: {
-						...(props.category !== "all-categories" && {
-							category: {
-								id: props.category
-							}
-						}),
-						...(props.brand !== "all-brands" && {
-							brand: {
-								id: props.brand
-							}
-						}),
-						price_gte: props.min_price,
-						price_lte: props.max_price
-					}
-				}
-			}}
-		>
-			{({ data, error, loading }) => {
-				if (loading) return <p>Loading...</p>;
-				if (error) return <p>Error: {error.message}</p>;
+class FilteredProducts extends React.Component {
+	state = {
+		numOfProducts: 5
+	};
 
-				return (
-					<React.Fragment>
-						{data.products.map(product => (
-							<FilteredProductCard
-								key={product.id}
-								product={product}
-							/>
-						))}
-					</React.Fragment>
-				);
-			}}
-		</Query>
+	showMore = () => {
+		this.setState({ numOfProducts: this.state.numOfProducts + 5 });
+	};
 
-		<button className="btn show-more">Show More</button>
-	</div>
-);
+	render() {
+		return (
+			<div id="sorted-products">
+				<Query
+					query={FILTERED_PRODUCTS_QUERY}
+					variables={{
+						first: this.state.numOfProducts,
+						orderBy: this.props.sort_type,
+						where: {
+							AND: {
+								...(this.props.category !==
+									"all-categories" && {
+									category: {
+										id: this.props.category
+									}
+								}),
+								...(this.props.brand !== "all-brands" && {
+									brand: {
+										id: this.props.brand
+									}
+								}),
+								price_gte: this.props.min_price,
+								price_lte: this.props.max_price
+							}
+						}
+					}}
+				>
+					{({ data, error, loading }) => {
+						if (loading) return <p>Loading...</p>;
+						if (error) return <p>Error: {error.message}</p>;
+
+						return (
+							<React.Fragment>
+								{data.products.map(product => (
+									<FilteredProductCard
+										key={product.id}
+										product={product}
+									/>
+								))}
+
+								{data.productsConnection.aggregate.count >
+									this.state.numOfProducts && (
+									<button
+										className="btn show-more"
+										onClick={this.showMore}
+									>
+										Show More
+									</button>
+								)}
+							</React.Fragment>
+						);
+					}}
+				</Query>
+			</div>
+		);
+	}
+}
 
 export default FilteredProducts;

@@ -85,7 +85,11 @@ const CartProduct = ({ cartProduct }) => (
 							&#120;
 						</button>
 						<button
-							disabled={incrementCartProduct.loading}
+							disabled={
+								incrementCartProduct.loading ||
+								cartProduct.product.stock <=
+									cartProduct.quantity
+							}
 							onClick={incrementCartProduct}
 							className="increase"
 						>

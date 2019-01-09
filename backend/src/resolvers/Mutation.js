@@ -166,6 +166,7 @@ const mutations = {
 						description
 						image_url
 						sale
+						stock
 					}
 				}}`
 		);
@@ -191,6 +192,7 @@ const mutations = {
 			return false;
 		}
 
+		// Save current copy of product as an order product
 		const orderProducts = user.cart.map(cartProduct => {
 			const orderProduct = {
 				quantity: cartProduct.quantity,
@@ -202,9 +204,14 @@ const mutations = {
 				sale: cartProduct.product.sale
 			};
 
+			if (cartProduct.product.stock < cartProduct.quantity) {
+				throw new Error("Too many items!");
+			}
+
 			return orderProduct;
 		});
 
+		// Gets total order value
 		const total = user.cart.reduce((tally, cartProduct) => {
 			if (!cartProduct.product) return tally;
 			return tally + cartProduct.quantity * cartProduct.product.price;
@@ -229,6 +236,20 @@ const mutations = {
 			info
 		);
 
+		// Updates stock on all ordered items
+		const updateStockPromises = user.cart.map(async cartProduct => {
+			await ctx.db.mutation.updateProduct({
+				data: {
+					stock: cartProduct.product.stock - cartProduct.quantity
+				},
+				where: {
+					id: cartProduct.product.id
+				}
+			});
+		});
+		await Promise.all(updateStockPromises);
+
+		// Clears the user's cart
 		const cartProductIds = user.cart.map(cartProduct => cartProduct.id);
 		await ctx.db.mutation.deleteManyCartProducts({
 			where: {

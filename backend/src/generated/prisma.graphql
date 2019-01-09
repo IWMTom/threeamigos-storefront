@@ -1,5 +1,5 @@
 # source: http://192.168.0.98:4444
-# timestamp: Tue Jan 08 2019 13:14:18 GMT+0000 (Greenwich Mean Time)
+# timestamp: Tue Jan 08 2019 20:51:25 GMT+0000 (Greenwich Mean Time)
 
 type AggregateBrand {
   count: Int!
@@ -17,11 +17,23 @@ type AggregateCategory {
   count: Int!
 }
 
+type AggregateOrder {
+  count: Int!
+}
+
+type AggregateOrderProduct {
+  count: Int!
+}
+
 type AggregateProduct {
   count: Int!
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateUserAddress {
   count: Int!
 }
 
@@ -379,6 +391,11 @@ input CardDetailCreateManyWithoutUserInput {
   connect: [CardDetailWhereUniqueInput!]
 }
 
+input CardDetailCreateOneInput {
+  create: CardDetailCreateInput
+  connect: CardDetailWhereUniqueInput
+}
+
 input CardDetailCreateWithoutUserInput {
   card_number: String!
   cardholder_name: String!
@@ -714,6 +731,15 @@ input CardDetailSubscriptionWhereInput {
   node: CardDetailWhereInput
 }
 
+input CardDetailUpdateDataInput {
+  card_number: String
+  cardholder_name: String
+  expiry_date: String
+  security_code: String
+  type: String
+  user: UserUpdateOneRequiredWithoutCardDetailsInput
+}
+
 input CardDetailUpdateInput {
   card_number: String
   cardholder_name: String
@@ -755,6 +781,13 @@ input CardDetailUpdateManyWithWhereNestedInput {
   data: CardDetailUpdateManyDataInput!
 }
 
+input CardDetailUpdateOneRequiredInput {
+  create: CardDetailCreateInput
+  connect: CardDetailWhereUniqueInput
+  update: CardDetailUpdateDataInput
+  upsert: CardDetailUpsertNestedInput
+}
+
 input CardDetailUpdateWithoutUserDataInput {
   card_number: String
   cardholder_name: String
@@ -766,6 +799,11 @@ input CardDetailUpdateWithoutUserDataInput {
 input CardDetailUpdateWithWhereUniqueWithoutUserInput {
   where: CardDetailWhereUniqueInput!
   data: CardDetailUpdateWithoutUserDataInput!
+}
+
+input CardDetailUpsertNestedInput {
+  update: CardDetailUpdateDataInput!
+  create: CardDetailCreateInput!
 }
 
 input CardDetailUpsertWithWhereUniqueWithoutUserInput {
@@ -1698,39 +1736,57 @@ scalar Long
 type Mutation {
   createCategory(data: CategoryCreateInput!): Category!
   createBrand(data: BrandCreateInput!): Brand!
-  createUser(data: UserCreateInput!): User!
   createCartProduct(data: CartProductCreateInput!): CartProduct!
+  createOrder(data: OrderCreateInput!): Order!
   createCardDetail(data: CardDetailCreateInput!): CardDetail!
+  createUser(data: UserCreateInput!): User!
+  createUserAddress(data: UserAddressCreateInput!): UserAddress!
+  createOrderProduct(data: OrderProductCreateInput!): OrderProduct!
   createProduct(data: ProductCreateInput!): Product!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Brand
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCartProduct(data: CartProductUpdateInput!, where: CartProductWhereUniqueInput!): CartProduct
+  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
   updateCardDetail(data: CardDetailUpdateInput!, where: CardDetailWhereUniqueInput!): CardDetail
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateUserAddress(data: UserAddressUpdateInput!, where: UserAddressWhereUniqueInput!): UserAddress
+  updateOrderProduct(data: OrderProductUpdateInput!, where: OrderProductWhereUniqueInput!): OrderProduct
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteBrand(where: BrandWhereUniqueInput!): Brand
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteCartProduct(where: CartProductWhereUniqueInput!): CartProduct
+  deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteCardDetail(where: CardDetailWhereUniqueInput!): CardDetail
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteUserAddress(where: UserAddressWhereUniqueInput!): UserAddress
+  deleteOrderProduct(where: OrderProductWhereUniqueInput!): OrderProduct
   deleteProduct(where: ProductWhereUniqueInput!): Product
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   upsertBrand(where: BrandWhereUniqueInput!, create: BrandCreateInput!, update: BrandUpdateInput!): Brand!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCartProduct(where: CartProductWhereUniqueInput!, create: CartProductCreateInput!, update: CartProductUpdateInput!): CartProduct!
+  upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   upsertCardDetail(where: CardDetailWhereUniqueInput!, create: CardDetailCreateInput!, update: CardDetailUpdateInput!): CardDetail!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertUserAddress(where: UserAddressWhereUniqueInput!, create: UserAddressCreateInput!, update: UserAddressUpdateInput!): UserAddress!
+  upsertOrderProduct(where: OrderProductWhereUniqueInput!, create: OrderProductCreateInput!, update: OrderProductUpdateInput!): OrderProduct!
   upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
   updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   updateManyBrands(data: BrandUpdateManyMutationInput!, where: BrandWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCartProducts(data: CartProductUpdateManyMutationInput!, where: CartProductWhereInput): BatchPayload!
+  updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
   updateManyCardDetails(data: CardDetailUpdateManyMutationInput!, where: CardDetailWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyUserAddresses(data: UserAddressUpdateManyMutationInput!, where: UserAddressWhereInput): BatchPayload!
+  updateManyOrderProducts(data: OrderProductUpdateManyMutationInput!, where: OrderProductWhereInput): BatchPayload!
   updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   deleteManyBrands(where: BrandWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCartProducts(where: CartProductWhereInput): BatchPayload!
+  deleteManyOrders(where: OrderWhereInput): BatchPayload!
   deleteManyCardDetails(where: CardDetailWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyUserAddresses(where: UserAddressWhereInput): BatchPayload!
+  deleteManyOrderProducts(where: OrderProductWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
 }
 
@@ -1744,6 +1800,815 @@ enum MutationType {
 interface Node {
   """The id of the object."""
   id: ID!
+}
+
+type Order implements Node {
+  id: ID!
+  products(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct!]
+  total: Int!
+  user: User!
+  card: CardDetail!
+  address: UserAddress!
+}
+
+"""A connection to a list of items."""
+type OrderConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OrderEdge]!
+  aggregate: AggregateOrder!
+}
+
+input OrderCreateInput {
+  total: Int!
+  products: OrderProductCreateManyInput
+  user: UserCreateOneInput!
+  card: CardDetailCreateOneInput!
+  address: UserAddressCreateOneInput!
+}
+
+"""An edge in a connection."""
+type OrderEdge {
+  """The item at the end of the edge."""
+  node: Order!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OrderOrderByInput {
+  id_ASC
+  id_DESC
+  total_ASC
+  total_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OrderPreviousValues {
+  id: ID!
+  total: Int!
+}
+
+type OrderProduct implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  image_url: String!
+  price: Int!
+  sale: Boolean!
+  quantity: Int!
+  user: User
+}
+
+"""A connection to a list of items."""
+type OrderProductConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [OrderProductEdge]!
+  aggregate: AggregateOrderProduct!
+}
+
+input OrderProductCreateInput {
+  name: String!
+  description: String!
+  image_url: String!
+  price: Int!
+  sale: Boolean!
+  quantity: Int
+  user: UserCreateOneInput
+}
+
+input OrderProductCreateManyInput {
+  create: [OrderProductCreateInput!]
+  connect: [OrderProductWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type OrderProductEdge {
+  """The item at the end of the edge."""
+  node: OrderProduct!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum OrderProductOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  image_url_ASC
+  image_url_DESC
+  price_ASC
+  price_DESC
+  sale_ASC
+  sale_DESC
+  quantity_ASC
+  quantity_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type OrderProductPreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+  image_url: String!
+  price: Int!
+  sale: Boolean!
+  quantity: Int!
+}
+
+input OrderProductScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrderProductScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrderProductScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrderProductScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  image_url: String
+
+  """All values that are not equal to given value."""
+  image_url_not: String
+
+  """All values that are contained in given list."""
+  image_url_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_url_not_in: [String!]
+
+  """All values less than the given value."""
+  image_url_lt: String
+
+  """All values less than or equal the given value."""
+  image_url_lte: String
+
+  """All values greater than the given value."""
+  image_url_gt: String
+
+  """All values greater than or equal the given value."""
+  image_url_gte: String
+
+  """All values containing the given string."""
+  image_url_contains: String
+
+  """All values not containing the given string."""
+  image_url_not_contains: String
+
+  """All values starting with the given string."""
+  image_url_starts_with: String
+
+  """All values not starting with the given string."""
+  image_url_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_url_ends_with: String
+
+  """All values not ending with the given string."""
+  image_url_not_ends_with: String
+  price: Int
+
+  """All values that are not equal to given value."""
+  price_not: Int
+
+  """All values that are contained in given list."""
+  price_in: [Int!]
+
+  """All values that are not contained in given list."""
+  price_not_in: [Int!]
+
+  """All values less than the given value."""
+  price_lt: Int
+
+  """All values less than or equal the given value."""
+  price_lte: Int
+
+  """All values greater than the given value."""
+  price_gt: Int
+
+  """All values greater than or equal the given value."""
+  price_gte: Int
+  sale: Boolean
+
+  """All values that are not equal to given value."""
+  sale_not: Boolean
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
+}
+
+type OrderProductSubscriptionPayload {
+  mutation: MutationType!
+  node: OrderProduct
+  updatedFields: [String!]
+  previousValues: OrderProductPreviousValues
+}
+
+input OrderProductSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrderProductSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrderProductSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrderProductSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrderProductWhereInput
+}
+
+input OrderProductUpdateDataInput {
+  name: String
+  description: String
+  image_url: String
+  price: Int
+  sale: Boolean
+  quantity: Int
+  user: UserUpdateOneInput
+}
+
+input OrderProductUpdateInput {
+  name: String
+  description: String
+  image_url: String
+  price: Int
+  sale: Boolean
+  quantity: Int
+  user: UserUpdateOneInput
+}
+
+input OrderProductUpdateManyDataInput {
+  name: String
+  description: String
+  image_url: String
+  price: Int
+  sale: Boolean
+  quantity: Int
+}
+
+input OrderProductUpdateManyInput {
+  create: [OrderProductCreateInput!]
+  connect: [OrderProductWhereUniqueInput!]
+  disconnect: [OrderProductWhereUniqueInput!]
+  delete: [OrderProductWhereUniqueInput!]
+  update: [OrderProductUpdateWithWhereUniqueNestedInput!]
+  updateMany: [OrderProductUpdateManyWithWhereNestedInput!]
+  deleteMany: [OrderProductScalarWhereInput!]
+  upsert: [OrderProductUpsertWithWhereUniqueNestedInput!]
+}
+
+input OrderProductUpdateManyMutationInput {
+  name: String
+  description: String
+  image_url: String
+  price: Int
+  sale: Boolean
+  quantity: Int
+}
+
+input OrderProductUpdateManyWithWhereNestedInput {
+  where: OrderProductScalarWhereInput!
+  data: OrderProductUpdateManyDataInput!
+}
+
+input OrderProductUpdateWithWhereUniqueNestedInput {
+  where: OrderProductWhereUniqueInput!
+  data: OrderProductUpdateDataInput!
+}
+
+input OrderProductUpsertWithWhereUniqueNestedInput {
+  where: OrderProductWhereUniqueInput!
+  update: OrderProductUpdateDataInput!
+  create: OrderProductCreateInput!
+}
+
+input OrderProductWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrderProductWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrderProductWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrderProductWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  image_url: String
+
+  """All values that are not equal to given value."""
+  image_url_not: String
+
+  """All values that are contained in given list."""
+  image_url_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_url_not_in: [String!]
+
+  """All values less than the given value."""
+  image_url_lt: String
+
+  """All values less than or equal the given value."""
+  image_url_lte: String
+
+  """All values greater than the given value."""
+  image_url_gt: String
+
+  """All values greater than or equal the given value."""
+  image_url_gte: String
+
+  """All values containing the given string."""
+  image_url_contains: String
+
+  """All values not containing the given string."""
+  image_url_not_contains: String
+
+  """All values starting with the given string."""
+  image_url_starts_with: String
+
+  """All values not starting with the given string."""
+  image_url_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_url_ends_with: String
+
+  """All values not ending with the given string."""
+  image_url_not_ends_with: String
+  price: Int
+
+  """All values that are not equal to given value."""
+  price_not: Int
+
+  """All values that are contained in given list."""
+  price_in: [Int!]
+
+  """All values that are not contained in given list."""
+  price_not_in: [Int!]
+
+  """All values less than the given value."""
+  price_lt: Int
+
+  """All values less than or equal the given value."""
+  price_lte: Int
+
+  """All values greater than the given value."""
+  price_gt: Int
+
+  """All values greater than or equal the given value."""
+  price_gte: Int
+  sale: Boolean
+
+  """All values that are not equal to given value."""
+  sale_not: Boolean
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
+  user: UserWhereInput
+}
+
+input OrderProductWhereUniqueInput {
+  id: ID
+}
+
+type OrderSubscriptionPayload {
+  mutation: MutationType!
+  node: Order
+  updatedFields: [String!]
+  previousValues: OrderPreviousValues
+}
+
+input OrderSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrderSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrderSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrderSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: OrderWhereInput
+}
+
+input OrderUpdateInput {
+  total: Int
+  products: OrderProductUpdateManyInput
+  user: UserUpdateOneRequiredInput
+  card: CardDetailUpdateOneRequiredInput
+  address: UserAddressUpdateOneRequiredInput
+}
+
+input OrderUpdateManyMutationInput {
+  total: Int
+}
+
+input OrderWhereInput {
+  """Logical AND on all given filters."""
+  AND: [OrderWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [OrderWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [OrderWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  total: Int
+
+  """All values that are not equal to given value."""
+  total_not: Int
+
+  """All values that are contained in given list."""
+  total_in: [Int!]
+
+  """All values that are not contained in given list."""
+  total_not_in: [Int!]
+
+  """All values less than the given value."""
+  total_lt: Int
+
+  """All values less than or equal the given value."""
+  total_lte: Int
+
+  """All values greater than the given value."""
+  total_gt: Int
+
+  """All values greater than or equal the given value."""
+  total_gte: Int
+  products_every: OrderProductWhereInput
+  products_some: OrderProductWhereInput
+  products_none: OrderProductWhereInput
+  user: UserWhereInput
+  card: CardDetailWhereInput
+  address: UserAddressWhereInput
+}
+
+input OrderWhereUniqueInput {
+  id: ID
 }
 
 """Information about pagination in a connection."""
@@ -2571,21 +3436,30 @@ input ProductWhereUniqueInput {
 type Query {
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
   brands(where: BrandWhereInput, orderBy: BrandOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Brand]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   cartProducts(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CartProduct]!
+  orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
   cardDetails(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardDetail]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  userAddresses(where: UserAddressWhereInput, orderBy: UserAddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserAddress]!
+  orderProducts(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderProduct]!
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
   category(where: CategoryWhereUniqueInput!): Category
   brand(where: BrandWhereUniqueInput!): Brand
-  user(where: UserWhereUniqueInput!): User
   cartProduct(where: CartProductWhereUniqueInput!): CartProduct
+  order(where: OrderWhereUniqueInput!): Order
   cardDetail(where: CardDetailWhereUniqueInput!): CardDetail
+  user(where: UserWhereUniqueInput!): User
+  userAddress(where: UserAddressWhereUniqueInput!): UserAddress
+  orderProduct(where: OrderProductWhereUniqueInput!): OrderProduct
   product(where: ProductWhereUniqueInput!): Product
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   brandsConnection(where: BrandWhereInput, orderBy: BrandOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BrandConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   cartProductsConnection(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CartProductConnection!
+  ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
   cardDetailsConnection(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardDetailConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  userAddressesConnection(where: UserAddressWhereInput, orderBy: UserAddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserAddressConnection!
+  orderProductsConnection(where: OrderProductWhereInput, orderBy: OrderProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderProductConnection!
   productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
 
   """Fetches an object given its ID"""
@@ -2598,9 +3472,12 @@ type Query {
 type Subscription {
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   brand(where: BrandSubscriptionWhereInput): BrandSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   cartProduct(where: CartProductSubscriptionWhereInput): CartProductSubscriptionPayload
+  order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   cardDetail(where: CardDetailSubscriptionWhereInput): CardDetailSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  userAddress(where: UserAddressSubscriptionWhereInput): UserAddressSubscriptionPayload
+  orderProduct(where: OrderProductSubscriptionWhereInput): OrderProductSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
 }
 
@@ -2610,6 +3487,718 @@ type User implements Node {
   photo_url: String
   cart(where: CartProductWhereInput, orderBy: CartProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CartProduct!]
   cardDetails(where: CardDetailWhereInput, orderBy: CardDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CardDetail!]
+  addresses(where: UserAddressWhereInput, orderBy: UserAddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserAddress!]
+}
+
+type UserAddress implements Node {
+  id: ID!
+  user: User!
+  house_number: String!
+  street_name: String!
+  city: String!
+  county: String!
+  postcode: String!
+}
+
+"""A connection to a list of items."""
+type UserAddressConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserAddressEdge]!
+  aggregate: AggregateUserAddress!
+}
+
+input UserAddressCreateInput {
+  house_number: String!
+  street_name: String!
+  city: String!
+  county: String!
+  postcode: String!
+  user: UserCreateOneWithoutAddressesInput!
+}
+
+input UserAddressCreateManyWithoutUserInput {
+  create: [UserAddressCreateWithoutUserInput!]
+  connect: [UserAddressWhereUniqueInput!]
+}
+
+input UserAddressCreateOneInput {
+  create: UserAddressCreateInput
+  connect: UserAddressWhereUniqueInput
+}
+
+input UserAddressCreateWithoutUserInput {
+  house_number: String!
+  street_name: String!
+  city: String!
+  county: String!
+  postcode: String!
+}
+
+"""An edge in a connection."""
+type UserAddressEdge {
+  """The item at the end of the edge."""
+  node: UserAddress!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserAddressOrderByInput {
+  id_ASC
+  id_DESC
+  house_number_ASC
+  house_number_DESC
+  street_name_ASC
+  street_name_DESC
+  city_ASC
+  city_DESC
+  county_ASC
+  county_DESC
+  postcode_ASC
+  postcode_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserAddressPreviousValues {
+  id: ID!
+  house_number: String!
+  street_name: String!
+  city: String!
+  county: String!
+  postcode: String!
+}
+
+input UserAddressScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserAddressScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserAddressScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserAddressScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  house_number: String
+
+  """All values that are not equal to given value."""
+  house_number_not: String
+
+  """All values that are contained in given list."""
+  house_number_in: [String!]
+
+  """All values that are not contained in given list."""
+  house_number_not_in: [String!]
+
+  """All values less than the given value."""
+  house_number_lt: String
+
+  """All values less than or equal the given value."""
+  house_number_lte: String
+
+  """All values greater than the given value."""
+  house_number_gt: String
+
+  """All values greater than or equal the given value."""
+  house_number_gte: String
+
+  """All values containing the given string."""
+  house_number_contains: String
+
+  """All values not containing the given string."""
+  house_number_not_contains: String
+
+  """All values starting with the given string."""
+  house_number_starts_with: String
+
+  """All values not starting with the given string."""
+  house_number_not_starts_with: String
+
+  """All values ending with the given string."""
+  house_number_ends_with: String
+
+  """All values not ending with the given string."""
+  house_number_not_ends_with: String
+  street_name: String
+
+  """All values that are not equal to given value."""
+  street_name_not: String
+
+  """All values that are contained in given list."""
+  street_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  street_name_not_in: [String!]
+
+  """All values less than the given value."""
+  street_name_lt: String
+
+  """All values less than or equal the given value."""
+  street_name_lte: String
+
+  """All values greater than the given value."""
+  street_name_gt: String
+
+  """All values greater than or equal the given value."""
+  street_name_gte: String
+
+  """All values containing the given string."""
+  street_name_contains: String
+
+  """All values not containing the given string."""
+  street_name_not_contains: String
+
+  """All values starting with the given string."""
+  street_name_starts_with: String
+
+  """All values not starting with the given string."""
+  street_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  street_name_ends_with: String
+
+  """All values not ending with the given string."""
+  street_name_not_ends_with: String
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  county: String
+
+  """All values that are not equal to given value."""
+  county_not: String
+
+  """All values that are contained in given list."""
+  county_in: [String!]
+
+  """All values that are not contained in given list."""
+  county_not_in: [String!]
+
+  """All values less than the given value."""
+  county_lt: String
+
+  """All values less than or equal the given value."""
+  county_lte: String
+
+  """All values greater than the given value."""
+  county_gt: String
+
+  """All values greater than or equal the given value."""
+  county_gte: String
+
+  """All values containing the given string."""
+  county_contains: String
+
+  """All values not containing the given string."""
+  county_not_contains: String
+
+  """All values starting with the given string."""
+  county_starts_with: String
+
+  """All values not starting with the given string."""
+  county_not_starts_with: String
+
+  """All values ending with the given string."""
+  county_ends_with: String
+
+  """All values not ending with the given string."""
+  county_not_ends_with: String
+  postcode: String
+
+  """All values that are not equal to given value."""
+  postcode_not: String
+
+  """All values that are contained in given list."""
+  postcode_in: [String!]
+
+  """All values that are not contained in given list."""
+  postcode_not_in: [String!]
+
+  """All values less than the given value."""
+  postcode_lt: String
+
+  """All values less than or equal the given value."""
+  postcode_lte: String
+
+  """All values greater than the given value."""
+  postcode_gt: String
+
+  """All values greater than or equal the given value."""
+  postcode_gte: String
+
+  """All values containing the given string."""
+  postcode_contains: String
+
+  """All values not containing the given string."""
+  postcode_not_contains: String
+
+  """All values starting with the given string."""
+  postcode_starts_with: String
+
+  """All values not starting with the given string."""
+  postcode_not_starts_with: String
+
+  """All values ending with the given string."""
+  postcode_ends_with: String
+
+  """All values not ending with the given string."""
+  postcode_not_ends_with: String
+}
+
+type UserAddressSubscriptionPayload {
+  mutation: MutationType!
+  node: UserAddress
+  updatedFields: [String!]
+  previousValues: UserAddressPreviousValues
+}
+
+input UserAddressSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserAddressSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserAddressSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserAddressSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserAddressWhereInput
+}
+
+input UserAddressUpdateDataInput {
+  house_number: String
+  street_name: String
+  city: String
+  county: String
+  postcode: String
+  user: UserUpdateOneRequiredWithoutAddressesInput
+}
+
+input UserAddressUpdateInput {
+  house_number: String
+  street_name: String
+  city: String
+  county: String
+  postcode: String
+  user: UserUpdateOneRequiredWithoutAddressesInput
+}
+
+input UserAddressUpdateManyDataInput {
+  house_number: String
+  street_name: String
+  city: String
+  county: String
+  postcode: String
+}
+
+input UserAddressUpdateManyMutationInput {
+  house_number: String
+  street_name: String
+  city: String
+  county: String
+  postcode: String
+}
+
+input UserAddressUpdateManyWithoutUserInput {
+  create: [UserAddressCreateWithoutUserInput!]
+  connect: [UserAddressWhereUniqueInput!]
+  disconnect: [UserAddressWhereUniqueInput!]
+  delete: [UserAddressWhereUniqueInput!]
+  update: [UserAddressUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserAddressUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserAddressScalarWhereInput!]
+  upsert: [UserAddressUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input UserAddressUpdateManyWithWhereNestedInput {
+  where: UserAddressScalarWhereInput!
+  data: UserAddressUpdateManyDataInput!
+}
+
+input UserAddressUpdateOneRequiredInput {
+  create: UserAddressCreateInput
+  connect: UserAddressWhereUniqueInput
+  update: UserAddressUpdateDataInput
+  upsert: UserAddressUpsertNestedInput
+}
+
+input UserAddressUpdateWithoutUserDataInput {
+  house_number: String
+  street_name: String
+  city: String
+  county: String
+  postcode: String
+}
+
+input UserAddressUpdateWithWhereUniqueWithoutUserInput {
+  where: UserAddressWhereUniqueInput!
+  data: UserAddressUpdateWithoutUserDataInput!
+}
+
+input UserAddressUpsertNestedInput {
+  update: UserAddressUpdateDataInput!
+  create: UserAddressCreateInput!
+}
+
+input UserAddressUpsertWithWhereUniqueWithoutUserInput {
+  where: UserAddressWhereUniqueInput!
+  update: UserAddressUpdateWithoutUserDataInput!
+  create: UserAddressCreateWithoutUserInput!
+}
+
+input UserAddressWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserAddressWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserAddressWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserAddressWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  house_number: String
+
+  """All values that are not equal to given value."""
+  house_number_not: String
+
+  """All values that are contained in given list."""
+  house_number_in: [String!]
+
+  """All values that are not contained in given list."""
+  house_number_not_in: [String!]
+
+  """All values less than the given value."""
+  house_number_lt: String
+
+  """All values less than or equal the given value."""
+  house_number_lte: String
+
+  """All values greater than the given value."""
+  house_number_gt: String
+
+  """All values greater than or equal the given value."""
+  house_number_gte: String
+
+  """All values containing the given string."""
+  house_number_contains: String
+
+  """All values not containing the given string."""
+  house_number_not_contains: String
+
+  """All values starting with the given string."""
+  house_number_starts_with: String
+
+  """All values not starting with the given string."""
+  house_number_not_starts_with: String
+
+  """All values ending with the given string."""
+  house_number_ends_with: String
+
+  """All values not ending with the given string."""
+  house_number_not_ends_with: String
+  street_name: String
+
+  """All values that are not equal to given value."""
+  street_name_not: String
+
+  """All values that are contained in given list."""
+  street_name_in: [String!]
+
+  """All values that are not contained in given list."""
+  street_name_not_in: [String!]
+
+  """All values less than the given value."""
+  street_name_lt: String
+
+  """All values less than or equal the given value."""
+  street_name_lte: String
+
+  """All values greater than the given value."""
+  street_name_gt: String
+
+  """All values greater than or equal the given value."""
+  street_name_gte: String
+
+  """All values containing the given string."""
+  street_name_contains: String
+
+  """All values not containing the given string."""
+  street_name_not_contains: String
+
+  """All values starting with the given string."""
+  street_name_starts_with: String
+
+  """All values not starting with the given string."""
+  street_name_not_starts_with: String
+
+  """All values ending with the given string."""
+  street_name_ends_with: String
+
+  """All values not ending with the given string."""
+  street_name_not_ends_with: String
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  county: String
+
+  """All values that are not equal to given value."""
+  county_not: String
+
+  """All values that are contained in given list."""
+  county_in: [String!]
+
+  """All values that are not contained in given list."""
+  county_not_in: [String!]
+
+  """All values less than the given value."""
+  county_lt: String
+
+  """All values less than or equal the given value."""
+  county_lte: String
+
+  """All values greater than the given value."""
+  county_gt: String
+
+  """All values greater than or equal the given value."""
+  county_gte: String
+
+  """All values containing the given string."""
+  county_contains: String
+
+  """All values not containing the given string."""
+  county_not_contains: String
+
+  """All values starting with the given string."""
+  county_starts_with: String
+
+  """All values not starting with the given string."""
+  county_not_starts_with: String
+
+  """All values ending with the given string."""
+  county_ends_with: String
+
+  """All values not ending with the given string."""
+  county_not_ends_with: String
+  postcode: String
+
+  """All values that are not equal to given value."""
+  postcode_not: String
+
+  """All values that are contained in given list."""
+  postcode_in: [String!]
+
+  """All values that are not contained in given list."""
+  postcode_not_in: [String!]
+
+  """All values less than the given value."""
+  postcode_lt: String
+
+  """All values less than or equal the given value."""
+  postcode_lte: String
+
+  """All values greater than the given value."""
+  postcode_gt: String
+
+  """All values greater than or equal the given value."""
+  postcode_gte: String
+
+  """All values containing the given string."""
+  postcode_contains: String
+
+  """All values not containing the given string."""
+  postcode_not_contains: String
+
+  """All values starting with the given string."""
+  postcode_starts_with: String
+
+  """All values not starting with the given string."""
+  postcode_not_starts_with: String
+
+  """All values ending with the given string."""
+  postcode_ends_with: String
+
+  """All values not ending with the given string."""
+  postcode_not_ends_with: String
+  user: UserWhereInput
+}
+
+input UserAddressWhereUniqueInput {
+  id: ID
 }
 
 """A connection to a list of items."""
@@ -2627,6 +4216,17 @@ input UserCreateInput {
   photo_url: String
   cart: CartProductCreateManyWithoutUserInput
   cardDetails: CardDetailCreateManyWithoutUserInput
+  addresses: UserAddressCreateManyWithoutUserInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutAddressesInput {
+  create: UserCreateWithoutAddressesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCardDetailsInput {
@@ -2639,16 +4239,25 @@ input UserCreateOneWithoutCartInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateWithoutAddressesInput {
+  name: String!
+  photo_url: String
+  cart: CartProductCreateManyWithoutUserInput
+  cardDetails: CardDetailCreateManyWithoutUserInput
+}
+
 input UserCreateWithoutCardDetailsInput {
   name: String!
   photo_url: String
   cart: CartProductCreateManyWithoutUserInput
+  addresses: UserAddressCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCartInput {
   name: String!
   photo_url: String
   cardDetails: CardDetailCreateManyWithoutUserInput
+  addresses: UserAddressCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -2718,16 +4327,48 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  photo_url: String
+  cart: CartProductUpdateManyWithoutUserInput
+  cardDetails: CardDetailUpdateManyWithoutUserInput
+  addresses: UserAddressUpdateManyWithoutUserInput
+}
+
 input UserUpdateInput {
   name: String
   photo_url: String
   cart: CartProductUpdateManyWithoutUserInput
   cardDetails: CardDetailUpdateManyWithoutUserInput
+  addresses: UserAddressUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   photo_url: String
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdateOneRequiredWithoutAddressesInput {
+  create: UserCreateWithoutAddressesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutAddressesDataInput
+  upsert: UserUpsertWithoutAddressesInput
 }
 
 input UserUpdateOneRequiredWithoutCardDetailsInput {
@@ -2744,16 +4385,35 @@ input UserUpdateOneRequiredWithoutCartInput {
   upsert: UserUpsertWithoutCartInput
 }
 
+input UserUpdateWithoutAddressesDataInput {
+  name: String
+  photo_url: String
+  cart: CartProductUpdateManyWithoutUserInput
+  cardDetails: CardDetailUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCardDetailsDataInput {
   name: String
   photo_url: String
   cart: CartProductUpdateManyWithoutUserInput
+  addresses: UserAddressUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCartDataInput {
   name: String
   photo_url: String
   cardDetails: CardDetailUpdateManyWithoutUserInput
+  addresses: UserAddressUpdateManyWithoutUserInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithoutAddressesInput {
+  update: UserUpdateWithoutAddressesDataInput!
+  create: UserCreateWithoutAddressesInput!
 }
 
 input UserUpsertWithoutCardDetailsInput {
@@ -2901,6 +4561,9 @@ input UserWhereInput {
   cardDetails_every: CardDetailWhereInput
   cardDetails_some: CardDetailWhereInput
   cardDetails_none: CardDetailWhereInput
+  addresses_every: UserAddressWhereInput
+  addresses_some: UserAddressWhereInput
+  addresses_none: UserAddressWhereInput
 }
 
 input UserWhereUniqueInput {

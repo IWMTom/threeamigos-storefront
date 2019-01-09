@@ -7,7 +7,7 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "test": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest --watchAll",
     "test-win": "SET NODE_ENV=test&& jest --watch",
     "heroku-postbuild": "next build"
   },
@@ -41,6 +41,7 @@
     "react-adopt": "^0.6.0",
     "react-apollo": "^2.2.1",
     "react-dom": "^16.5.2",
+    "react-html-parser": "^2.0.2",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
     "rheostat": "^3.0.1",
