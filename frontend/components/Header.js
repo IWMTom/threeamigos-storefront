@@ -3,7 +3,6 @@ import Link from "next/link";
 import NProgress from "nprogress";
 import Router from "next/router";
 import Navbar from "./Navbar";
-import Cart from "./Cart";
 import User from "./User";
 import { Mutation } from "react-apollo";
 import { TOGGLE_CART_MUTATION } from "./Cart";
@@ -24,7 +23,6 @@ const Header = () => (
 	<User>
 		{({ data: { me } }) => (
 			<header>
-				{me && <Cart />}
 				<div id="header-top">
 					<h1>
 						<Link href="/">

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProductCard /> renders and matches the snapshot 1`] = `
+<div
+  className="pure-u-1-3"
+>
+  <LinkRoutes
+    params={
+      Object {
+        "slug": "abc-def",
+      }
+    }
+    route="product"
+  >
+    <a
+      className="card product sale"
+    >
+      <span
+        className="product-sale"
+      >
+        Sale 50%
+      </span>
+      <img
+        alt="Abc Def"
+        src="http://placehold.it/100x100"
+      />
+      <span
+        id="name"
+      >
+        Abc Def
+      </span>
+      <h3
+        id="price"
+      >
+        £1.99
+      </h3>
+    </a>
+  </LinkRoutes>
+</div>
+`;

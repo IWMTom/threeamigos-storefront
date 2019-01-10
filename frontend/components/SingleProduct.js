@@ -46,9 +46,14 @@ class SingleProduct extends Component {
 				}}
 			>
 				{({ data, error, loading }) => {
-					const product = data.products[0];
 					if (loading) return <p>Loading...</p>;
-					if (error) return <p>Error: {error.message}</p>;
+					if (error)
+						return (
+							<p data-test="graphql-error">
+								Error: {error.message}
+							</p>
+						);
+					const product = data.products[0];
 					return (
 						<React.Fragment>
 							<Head>
@@ -183,3 +188,4 @@ class SingleProduct extends Component {
 }
 
 export default SingleProduct;
+export { SINGLE_PRODUCT_QUERY };

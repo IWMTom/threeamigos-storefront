@@ -7,8 +7,8 @@ const ProductCard = ({ product }) => (
 			<a className={product.sale ? "card product sale" : "card product"}>
 				{product.sale && <span className="product-sale">Sale 50%</span>}
 				<img src={product.image_url} alt={product.name} />
-				<span>{product.name}</span>
-				<h3>{formatMoney(product.price)}</h3>
+				<span id="name">{product.name}</span>
+				<h3 id="price">{formatMoney(product.price)}</h3>
 			</a>
 		</Link>
 	</div>

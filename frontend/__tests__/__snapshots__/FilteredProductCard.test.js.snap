@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FilteredProductCard /> renders and matches the snapshot 1`] = `
+<LinkRoutes
+  key="abcdefghijklmnopqrst"
+  params={
+    Object {
+      "slug": "abc-def",
+    }
+  }
+  route="product"
+>
+  <a
+    className="product card sale"
+  >
+    <span
+      className="product-sale"
+    >
+      Sale 50%
+    </span>
+    <div
+      className="pure-g"
+    >
+      <div
+        className="pure-u-1-4"
+      >
+        <img
+          src="http://placehold.it/100x100"
+        />
+      </div>
+      <div
+        className="product-content pure-u-3-4"
+      >
+        <h2>
+          Abc Def
+        </h2>
+        <span>
+          <i
+            className="ic_bookmark"
+          />
+          Screen Protectors
+        </span>
+        <span>
+          <i
+            className="ic_bookmark"
+          />
+          iStuff-R-Us
+        </span>
+        <p />
+        <aside>
+          <i
+            className="badge badge-pink"
+          >
+            In Stock
+          </i>
+          <span>
+            <del>
+              £3.98
+            </del>
+            £1.99
+          </span>
+        </aside>
+      </div>
+    </div>
+  </a>
+</LinkRoutes>
+`;

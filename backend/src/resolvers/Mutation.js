@@ -5,21 +5,36 @@ const mutations = {
 			throw new Error("You must be signed in!");
 		}
 
-		const [existingCartProduct] = await ctx.db.query.cartProducts({
-			where: {
-				user: { id: userId },
-				product: { id: args.id }
-			}
-		});
+		const [existingCartProduct] = await ctx.db.query.cartProducts(
+			{
+				where: {
+					user: { id: userId },
+					product: { id: args.id }
+				}
+			},
+			`{
+				id
+				quantity
+				product{
+					stock
+				}
+			}`
+		);
 
 		if (existingCartProduct) {
-			return ctx.db.mutation.updateCartProduct(
-				{
-					where: { id: existingCartProduct.id },
-					data: { quantity: existingCartProduct.quantity + 1 }
-				},
-				info
-			);
+			if (
+				existingCartProduct.product.stock > existingCartProduct.quantity
+			) {
+				return ctx.db.mutation.updateCartProduct(
+					{
+						where: { id: existingCartProduct.id },
+						data: { quantity: existingCartProduct.quantity + 1 }
+					},
+					info
+				);
+			} else {
+				return null;
+			}
 		}
 
 		return ctx.db.mutation.createCartProduct(

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BrandCard /> renders and matches the snapshot 1`] = `
+<div
+  className="pure-u-1-2"
+>
+  <LinkRoutes
+    params={
+      Object {
+        "slug": "istuff-r-us",
+      }
+    }
+    route="brand"
+  >
+    <a
+      className="card brand"
+    >
+      <img
+        alt="iStuff-R-Us"
+        src="http://placehold.it/300x100"
+      />
+    </a>
+  </LinkRoutes>
+</div>
+`;

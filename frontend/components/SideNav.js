@@ -23,7 +23,7 @@ const ALL_CATEGORIES_QUERY = gql`
 const SideNav = () => (
 	<Query query={ALL_CATEGORIES_QUERY}>
 		{({ data, error, loading }) => {
-			if (loading) return <p>Loading...</p>;
+			if (loading) return <p data-test="loading">Loading...</p>;
 			if (error) return <p>Error: {error.message}</p>;
 			return (
 				<section id="sidebar" className="pure-u-1-4">
@@ -40,3 +40,4 @@ const SideNav = () => (
 );
 
 export default SideNav;
+export { ALL_CATEGORIES_QUERY };

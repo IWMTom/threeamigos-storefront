@@ -23,10 +23,10 @@ const PopularBrands = () => (
 
 		<Query query={ALL_BRANDS_QUERY}>
 			{({ data, error, loading }) => {
-				if (loading) return <p>Loading...</p>;
+				if (loading) return <p data-test="loading">Loading...</p>;
 				if (error) return <p>Error: {error.message}</p>;
 				return (
-					<div className="pure-g">
+					<div className="pure-g" data-test="brand-cards">
 						{data.brands.map(brand => (
 							<BrandCard key={brand.id} brand={brand} />
 						))}
@@ -38,3 +38,4 @@ const PopularBrands = () => (
 );
 
 export default PopularBrands;
+export { ALL_BRANDS_QUERY };
