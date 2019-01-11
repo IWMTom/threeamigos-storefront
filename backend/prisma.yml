@@ -1,6 +1,7 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: http://192.168.0.98:4444
+endpoint: https://three-amigos-prod-c78835348a.herokuapp.com/three-amigos-prod/prod
 datamodel: datamodel.prisma
-
+secret: ${env:PRISMA_SECRET}
 hooks:
   post-deploy:
     - graphql get-schema -p prisma
