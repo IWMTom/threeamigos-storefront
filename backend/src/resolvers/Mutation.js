@@ -58,11 +58,20 @@ const mutations = {
 			throw new Error("You must be signed in!");
 		}
 
-		const [existingCartProduct] = await ctx.db.query.cartProducts({
-			where: {
-				id: args.id
-			}
-		});
+		const [existingCartProduct] = await ctx.db.query.cartProducts(
+			{
+				where: {
+					id: args.id
+				}
+			},
+			`{
+				id
+				quantity
+				product{
+					stock
+				}
+			}`
+		);
 
 		const modifier = args.increment ? 1 : -1;
 
@@ -71,13 +80,22 @@ const mutations = {
 			existingCartProduct &&
 			!(existingCartProduct.quantity <= 1 && !args.increment)
 		) {
-			return ctx.db.mutation.updateCartProduct(
-				{
-					where: { id: existingCartProduct.id },
-					data: { quantity: existingCartProduct.quantity + modifier }
-				},
-				info
-			);
+			if (
+				(existingCartProduct.product.stock >
+					existingCartProduct.quantity &&
+					args.increment) ||
+				!args.increment
+			) {
+				return ctx.db.mutation.updateCartProduct(
+					{
+						where: { id: existingCartProduct.id },
+						data: {
+							quantity: existingCartProduct.quantity + modifier
+						}
+					},
+					info
+				);
+			}
 		}
 
 		throw new Error("You don't have this product in your cart!");

@@ -61,6 +61,12 @@ const Composed = adopt({
 			mutation={REMOVE_FROM_CART_MUTATION}
 			variables={{ id: id }}
 			refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+			optimisticResponse={{
+				__typename: "Mutation",
+				removeFromCart: {
+					id: id
+				}
+			}}
 		>
 			{render}
 		</Mutation>

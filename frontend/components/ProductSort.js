@@ -46,7 +46,7 @@ const ProductSort = props => (
 					onChange={props.updateValue}
 				/>
 				<label htmlFor="price_DESC" className="radio-label">
-					<span>Price - Low to High</span>
+					<span>Price - High to Low</span>
 				</label>
 			</div>
 			<div className="horizontal-radio">

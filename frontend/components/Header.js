@@ -50,7 +50,7 @@ const Header = () => (
 								{me && <img src={me.photo_url} alt="Profile" />}
 								{!me && (
 									<img
-										src="http://placehold.it/100x100"
+										src="https://placehold.it/100x100"
 										alt="Profile"
 									/>
 								)}

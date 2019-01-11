@@ -5,6 +5,14 @@ const handler = routes.getRequestHandler(app);
 
 const { createServer } = require("http");
 
+const args = process.argv
+	.slice(2)
+	.map(arg => arg.split("="))
+	.reduce((args, [value, key]) => {
+		args[value] = key;
+		return args;
+	}, {});
+
 app.prepare().then(() => {
-	createServer(handler).listen(7777);
+	createServer(handler).listen(args.port);
 });
